@@ -1,0 +1,8 @@
+{
+  "name": "com.game399.shared",
+  "displayName": "Game399 Shared",
+  "version": "1.0.0",
+  "unity": "6000.2",
+  "description": "Shared game code for Game 399",
+  "author": { "name": "thdupont" }
+}

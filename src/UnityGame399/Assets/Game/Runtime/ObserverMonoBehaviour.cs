@@ -1,0 +1,59 @@
+using Game399.Shared.Diagnostics;
+using UnityEngine;
+
+namespace Game.Runtime
+{
+    public abstract class ObserverMonoBehaviour : MonoBehaviour
+    {
+        private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
+        
+        private bool _didCallStart;
+        private bool _didSubscribe;
+
+        protected virtual void Awake()
+        {
+            _didCallStart = false;
+            _didSubscribe = false;
+        }
+
+        protected virtual void Start()
+        {
+            _didCallStart = true;
+            TrySubscribe();
+        }
+
+        protected virtual void OnEnable()
+        {
+            TrySubscribe();
+        }
+
+        protected virtual void OnDisable()
+        {
+            TryUnsubscribe();
+        }
+
+        private void TrySubscribe()
+        {
+            if (!_didSubscribe && _didCallStart)
+            {
+                _didSubscribe = true;
+                Log.Info(GetType().Name + "." + nameof(TrySubscribe));
+                OnTrySubscribe();
+            }
+        }
+
+        private void TryUnsubscribe()
+        {
+            if (_didSubscribe)
+            {
+                _didSubscribe = false;
+                Log.Info(GetType().Name + "." + nameof(TryUnsubscribe));
+                OnTryUnsubscribe();
+            }
+        }
+
+        protected abstract void OnTrySubscribe();
+
+        protected abstract void OnTryUnsubscribe();
+    }
+}
