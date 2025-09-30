@@ -38,7 +38,7 @@ namespace Game.Runtime
             {
                 _didSubscribe = true;
                 Log.Info(GetType().Name + "." + nameof(TrySubscribe));
-                OnTrySubscribe();
+                Subscribe();
             }
         }
 
@@ -48,12 +48,12 @@ namespace Game.Runtime
             {
                 _didSubscribe = false;
                 Log.Info(GetType().Name + "." + nameof(TryUnsubscribe));
-                OnTryUnsubscribe();
+                Unsubscribe();
             }
         }
 
-        protected abstract void OnTrySubscribe();
+        protected abstract void Subscribe();
 
-        protected abstract void OnTryUnsubscribe();
+        protected abstract void Unsubscribe();
     }
 }
