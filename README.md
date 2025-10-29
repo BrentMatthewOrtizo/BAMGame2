@@ -1,3 +1,3 @@
-# game-339-project
+# A New Game Project - Auto Battler + Farming Sim
 
-Hello world!
+Test ReadME
