@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (GameStateManager.Instance && GameStateManager.Instance.playerPosition != Vector3.zero)
+            transform.position = GameStateManager.Instance.playerPosition;
     }
 
     void Update()
