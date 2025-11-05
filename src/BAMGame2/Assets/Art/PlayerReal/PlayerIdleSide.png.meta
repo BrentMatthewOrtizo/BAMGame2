@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: 2d12e94593952448a88f554611f5b477
+guid: c15dcb560dd904a4facec88b1d573d88
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5962620159239149606
-    second: Bee_Flying_Animation_0
+      213: -6552289496374711337
+    second: PlayerIdleSide_0
   - first:
-      213: 73615401178239410
-    second: Bee_Flying_Animation_1
+      213: -4755002949746996885
+    second: PlayerIdleSide_1
   - first:
-      213: -2188567842504887664
-    second: Bee_Flying_Animation_2
+      213: 422350178321839184
+    second: PlayerIdleSide_2
   - first:
-      213: 2351682480815645793
-    second: Bee_Flying_Animation_3
+      213: -8569299495971325541
+    second: PlayerIdleSide_3
   - first:
-      213: 7012656314752050041
-    second: Bee_Flying_Animation_4
+      213: 914074452653436571
+    second: PlayerIdleSide_4
   - first:
-      213: -7637488483339160645
-    second: Bee_Flying_Animation_5
-  - first:
-      213: 1476852706960345
-    second: Bee_Flying_Animation_6
-  - first:
-      213: -5420074577068891368
-    second: Bee_Flying_Animation_7
+      213: -5103554596507220171
+    second: PlayerIdleSide_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bee_Flying_Animation_0
+      name: PlayerIdleSide_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 19
-        width: 10
-        height: 9
+        x: 26
+        y: 23
+        width: 13
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad7a7f57e84804da0800000000000000
-      internalID: -5962620159239149606
+      spriteID: 7dbef072b679115a0800000000000000
+      internalID: -6552289496374711337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_1
+      name: PlayerIdleSide_1
       rect:
         serializedVersion: 2
-        x: 19
-        y: 19
-        width: 10
-        height: 8
+        x: 90
+        y: 23
+        width: 13
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b11a3d31d8850100800000000000000
-      internalID: 73615401178239410
+      spriteID: b694562a206d20eb0800000000000000
+      internalID: -4755002949746996885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_2
+      name: PlayerIdleSide_2
       rect:
         serializedVersion: 2
-        x: 35
-        y: 19
-        width: 10
-        height: 7
+        x: 154
+        y: 23
+        width: 13
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 09237ac8425a0a1e0800000000000000
-      internalID: -2188567842504887664
+      spriteID: 05432bddf3d7cd500800000000000000
+      internalID: 422350178321839184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_3
+      name: PlayerIdleSide_3
       rect:
         serializedVersion: 2
-        x: 51
-        y: 19
-        width: 10
-        height: 8
+        x: 218
+        y: 23
+        width: 13
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 164a68da1cad2a020800000000000000
-      internalID: 2351682480815645793
+      spriteID: b99f1b0b28bb31980800000000000000
+      internalID: -8569299495971325541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_4
+      name: PlayerIdleSide_4
       rect:
         serializedVersion: 2
-        x: 3
-        y: 3
-        width: 10
-        height: 9
+        x: 282
+        y: 23
+        width: 13
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97322bc73c5f15160800000000000000
-      internalID: 7012656314752050041
+      spriteID: b9eeaa82fd17fac00800000000000000
+      internalID: 914074452653436571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_5
+      name: PlayerIdleSide_5
       rect:
         serializedVersion: 2
-        x: 19
-        y: 3
-        width: 10
-        height: 8
+        x: 346
+        y: 23
+        width: 13
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,52 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bb3be6680b0320690800000000000000
-      internalID: -7637488483339160645
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Flying_Animation_6
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 3
-        width: 10
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d3ebf0903f350000800000000000000
-      internalID: 1476852706960345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Flying_Animation_7
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 3
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 813eea193e608c4b0800000000000000
-      internalID: -5420074577068891368
+      spriteID: 537006f52288c29b0800000000000000
+      internalID: -5103554596507220171
       vertices: []
       indices: 
       edges: []
@@ -300,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ed498246376710549bc654a397c98b94
+    spriteID: 0ef17466b4513ca4b85082251c0814b3
     internalID: 0
     vertices: []
     indices: 
@@ -310,16 +260,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":8.0,"y":8.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Bee_Flying_Animation_0: -5962620159239149606
-      Bee_Flying_Animation_1: 73615401178239410
-      Bee_Flying_Animation_2: -2188567842504887664
-      Bee_Flying_Animation_3: 2351682480815645793
-      Bee_Flying_Animation_4: 7012656314752050041
-      Bee_Flying_Animation_5: -7637488483339160645
-      Bee_Flying_Animation_6: 1476852706960345
-      Bee_Flying_Animation_7: -5420074577068891368
+      PlayerIdleSide_0: -6552289496374711337
+      PlayerIdleSide_1: -4755002949746996885
+      PlayerIdleSide_2: 422350178321839184
+      PlayerIdleSide_3: -8569299495971325541
+      PlayerIdleSide_4: 914074452653436571
+      PlayerIdleSide_5: -5103554596507220171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

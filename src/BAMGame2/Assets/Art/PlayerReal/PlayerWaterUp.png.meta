@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: 2d12e94593952448a88f554611f5b477
+guid: 4adeb3bf6daa2e74a9d71399509900b1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5962620159239149606
-    second: Bee_Flying_Animation_0
+      213: 170786319940984605
+    second: PlayerWaterUp_0
   - first:
-      213: 73615401178239410
-    second: Bee_Flying_Animation_1
+      213: 3370169567520267829
+    second: PlayerWaterUp_1
   - first:
-      213: -2188567842504887664
-    second: Bee_Flying_Animation_2
+      213: -4856856983700108053
+    second: PlayerWaterUp_2
   - first:
-      213: 2351682480815645793
-    second: Bee_Flying_Animation_3
+      213: 6538599081995177133
+    second: PlayerWaterUp_3
   - first:
-      213: 7012656314752050041
-    second: Bee_Flying_Animation_4
+      213: 4812727999205778797
+    second: PlayerWaterUp_4
   - first:
-      213: -7637488483339160645
-    second: Bee_Flying_Animation_5
-  - first:
-      213: 1476852706960345
-    second: Bee_Flying_Animation_6
-  - first:
-      213: -5420074577068891368
-    second: Bee_Flying_Animation_7
+      213: -7218220114138296024
+    second: PlayerWaterUp_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bee_Flying_Animation_0
+      name: PlayerWaterUp_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 19
-        width: 10
-        height: 9
+        x: 25
+        y: 23
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad7a7f57e84804da0800000000000000
-      internalID: -5962620159239149606
+      spriteID: d1f149cc041ce5200800000000000000
+      internalID: 170786319940984605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_1
+      name: PlayerWaterUp_1
       rect:
         serializedVersion: 2
-        x: 19
-        y: 19
-        width: 10
-        height: 8
+        x: 89
+        y: 23
+        width: 15
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b11a3d31d8850100800000000000000
-      internalID: 73615401178239410
+      spriteID: 53e90e0ad5f35ce20800000000000000
+      internalID: 3370169567520267829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_2
+      name: PlayerWaterUp_2
       rect:
         serializedVersion: 2
-        x: 35
-        y: 19
-        width: 10
-        height: 7
+        x: 153
+        y: 23
+        width: 15
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 09237ac8425a0a1e0800000000000000
-      internalID: -2188567842504887664
+      spriteID: bec0ea95e4af89cb0800000000000000
+      internalID: -4856856983700108053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_3
+      name: PlayerWaterUp_3
       rect:
         serializedVersion: 2
-        x: 51
-        y: 19
-        width: 10
-        height: 8
+        x: 218
+        y: 23
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 164a68da1cad2a020800000000000000
-      internalID: 2351682480815645793
+      spriteID: dac840bd835cdba50800000000000000
+      internalID: 6538599081995177133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_4
+      name: PlayerWaterUp_4
       rect:
         serializedVersion: 2
-        x: 3
-        y: 3
-        width: 10
-        height: 9
+        x: 282
+        y: 23
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97322bc73c5f15160800000000000000
-      internalID: 7012656314752050041
+      spriteID: d65ac39cd9e3ac240800000000000000
+      internalID: 4812727999205778797
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Flying_Animation_5
+      name: PlayerWaterUp_5
       rect:
         serializedVersion: 2
-        x: 19
-        y: 3
-        width: 10
-        height: 8
+        x: 346
+        y: 23
+        width: 18
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,52 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bb3be6680b0320690800000000000000
-      internalID: -7637488483339160645
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Flying_Animation_6
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 3
-        width: 10
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d3ebf0903f350000800000000000000
-      internalID: 1476852706960345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Flying_Animation_7
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 3
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 813eea193e608c4b0800000000000000
-      internalID: -5420074577068891368
+      spriteID: 821153acc0bb3db90800000000000000
+      internalID: -7218220114138296024
       vertices: []
       indices: 
       edges: []
@@ -300,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ed498246376710549bc654a397c98b94
+    spriteID: fd652a55b70f42e40892fcbb681601cb
     internalID: 0
     vertices: []
     indices: 
@@ -310,16 +260,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":8.0,"y":8.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Bee_Flying_Animation_0: -5962620159239149606
-      Bee_Flying_Animation_1: 73615401178239410
-      Bee_Flying_Animation_2: -2188567842504887664
-      Bee_Flying_Animation_3: 2351682480815645793
-      Bee_Flying_Animation_4: 7012656314752050041
-      Bee_Flying_Animation_5: -7637488483339160645
-      Bee_Flying_Animation_6: 1476852706960345
-      Bee_Flying_Animation_7: -5420074577068891368
+      PlayerWaterUp_0: 170786319940984605
+      PlayerWaterUp_1: 3370169567520267829
+      PlayerWaterUp_2: -4856856983700108053
+      PlayerWaterUp_3: 6538599081995177133
+      PlayerWaterUp_4: 4812727999205778797
+      PlayerWaterUp_5: -7218220114138296024
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
