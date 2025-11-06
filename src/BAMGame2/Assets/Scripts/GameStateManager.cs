@@ -1,14 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class CropData
-{
-    public Vector3Int cell;
-    public int currentStage;
-    public float timeElapsed;
-}
-
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
@@ -17,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     public Vector3 playerPosition;
 
     [Header("Crops")]
-    public List<CropData> crops = new();
+    public List<CropData> crops = new();  // ✅ Stores crop data for saving/loading
 
     private void Awake()
     {
@@ -31,7 +23,20 @@ public class GameStateManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SavePlayer(Vector3 pos) => playerPosition = pos;
-    public void SaveCrops(List<CropData> cropList) => crops = cropList;
-    public void ClearCrops() => crops.Clear();
+    // --- PLAYER ---
+    public void SavePlayer(Vector3 pos)
+    {
+        playerPosition = pos;
+    }
+
+    // --- CROPS ---
+    public void SaveCrops(List<CropData> cropList)
+    {
+        crops = cropList;
+    }
+
+    public void ClearCrops()
+    {
+        crops.Clear();
+    }
 }

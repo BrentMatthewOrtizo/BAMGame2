@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 263455238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.66, y: -0.4, z: 0}
+  m_LocalPosition: {x: -0.23, y: 0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -711,8 +711,9 @@ GameObject:
   - component: {fileID: 678187840}
   - component: {fileID: 678187839}
   - component: {fileID: 678187838}
+  - component: {fileID: 678187841}
   m_Layer: 0
-  m_Name: FarmTileArea (2)
+  m_Name: FarmAreaBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -730,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 1464053686}
+  farmingGrid: {fileID: 0}
 --- !u!61 &678187839
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -786,12 +787,26 @@ Transform:
   m_GameObject: {fileID: 678187837}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.25321, y: -5.90986, z: 0}
+  m_LocalPosition: {x: -3.25321, y: -5.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 263455239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &678187841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678187837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmArea
+  minPlantDistance: 0.5
+  cropParent: {fileID: 2080908338}
 --- !u!1 &691799133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,8 +2545,9 @@ GameObject:
   - component: {fileID: 1220682548}
   - component: {fileID: 1220682547}
   - component: {fileID: 1220682549}
+  - component: {fileID: 1220682550}
   m_Layer: 0
-  m_Name: FarmTileArea (1)
+  m_Name: FarmAreaTL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2610,7 +2626,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 1464053686}
+  farmingGrid: {fileID: 0}
+--- !u!114 &1220682550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220682546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmArea
+  minPlantDistance: 0.5
+  cropParent: {fileID: 2080908338}
 --- !u!1 &1239691509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,8 +2788,9 @@ GameObject:
   - component: {fileID: 1322258109}
   - component: {fileID: 1322258108}
   - component: {fileID: 1322258107}
+  - component: {fileID: 1322258110}
   m_Layer: 0
-  m_Name: FarmTileArea (3)
+  m_Name: FarmAreaTR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2777,7 +2808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 1464053686}
+  farmingGrid: {fileID: 0}
 --- !u!61 &1322258108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2833,12 +2864,26 @@ Transform:
   m_GameObject: {fileID: 1322258106}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.71558, y: 1.1187899, z: 0}
+  m_LocalPosition: {x: 11.75, y: 1.1187899, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 263455239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322258110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322258106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmArea
+  minPlantDistance: 0.5
+  cropParent: {fileID: 2080908338}
 --- !u!1 &1366557982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,7 +3621,7 @@ GameObject:
   - component: {fileID: 1464053685}
   - component: {fileID: 1464053686}
   m_Layer: 0
-  m_Name: FarmingGrid
+  m_Name: FarmManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3594,8 +3639,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2080908338}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1464053686
@@ -3607,23 +3651,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1464053684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24e19f5e99e5e043a9350c8b39b8191, type: 3}
+  m_Script: {fileID: 11500000, guid: 57cf8b11846cd5c428396e05d1589413, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FarmingGrid
-  farmlandTilemap: {fileID: 1217262274}
-  farmlandTiles:
-  - {fileID: 11400000, guid: 4e9a1a1a557432e4293655a9bc99a218, type: 2}
-  - {fileID: 11400000, guid: 917d1507b7343864892dd1dda0ddde72, type: 2}
-  - {fileID: 11400000, guid: 5b181f1f32c1ec149aa13e74bdda7ad8, type: 2}
-  - {fileID: 11400000, guid: 2a6079ab24a14ee4ebd0667d11c5b7dc, type: 2}
-  - {fileID: 11400000, guid: 4ee1c0f070efa744793e80956ef31e95, type: 2}
-  - {fileID: 11400000, guid: b49e64ac40c29d3419c9aa8d05269630, type: 2}
-  - {fileID: 11400000, guid: f9b3df0a2f1bc734db5fa8a1b9065cd5, type: 2}
-  - {fileID: 11400000, guid: 797bb7917a736ca41813314bbfc827d5, type: 2}
-  - {fileID: 11400000, guid: 806376116d933b44d9a1baf2a0d2c089, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::FarmManager
   cropPrefab: {fileID: 7406706770422914990, guid: fef600c950679f0408aea5a6474d6e5b, type: 3}
   cropParent: {fileID: 2080908338}
-  cycle: {fileID: 359570294}
 --- !u!114 &1501236853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8075,8 +8107,9 @@ GameObject:
   - component: {fileID: 1952571737}
   - component: {fileID: 1952571736}
   - component: {fileID: 1952571735}
+  - component: {fileID: 1952571738}
   m_Layer: 0
-  m_Name: FarmTileArea (4)
+  m_Name: FarmAreaBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8094,7 +8127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 1464053686}
+  farmingGrid: {fileID: 0}
 --- !u!61 &1952571736
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8150,12 +8183,26 @@ Transform:
   m_GameObject: {fileID: 1952571734}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.775579, y: -5.90986, z: 0}
+  m_LocalPosition: {x: 11.75, y: -5.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 263455239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1952571738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952571734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmArea
+  minPlantDistance: 0.5
+  cropParent: {fileID: 2080908338}
 --- !u!114 &2025847342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8463,7 +8510,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1464053685}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -8478,5 +8525,6 @@ SceneRoots:
   - {fileID: 590603317}
   - {fileID: 691799137}
   - {fileID: 1195897940}
-  - {fileID: 1464053685}
   - {fileID: 263455239}
+  - {fileID: 2080908338}
+  - {fileID: 1464053685}
