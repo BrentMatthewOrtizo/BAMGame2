@@ -47,6 +47,12 @@ TagManager:
   - name: WalkInFront
     uniqueID: 252632555
     locked: 0
+  - name: Farmland
+    uniqueID: 1345083469
+    locked: 0
+  - name: Crops
+    uniqueID: 3525490219
+    locked: 0
   - name: Collision
     uniqueID: 1182903315
     locked: 0
