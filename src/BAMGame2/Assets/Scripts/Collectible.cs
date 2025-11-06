@@ -30,15 +30,23 @@ public class Collectible : MonoBehaviour
         {
             case CollectibleType.Gold:
                 if (PlayerWallet.Instance != null)
+                {
                     PlayerWallet.Instance.AddGold(amount);
+                    Debug.Log($"[Collectible] Player collected {amount} gold. " +
+                              $"Total gold: {PlayerWallet.Instance.gold}");
+                }
+                else
+                {
+                    Debug.LogWarning("[Collectible] PlayerWallet.Instance is null – cannot track gold.");
+                }
                 break;
 
             case CollectibleType.Seed:
-                // will hook into inventory later
+                Debug.Log("[Collectible] Player picked up a seed (inventory feature pending).");
                 break;
 
             case CollectibleType.Crop:
-                // will hook into inventory later
+                Debug.Log("[Collectible] Player picked up a crop (inventory feature pending).");
                 break;
         }
 
