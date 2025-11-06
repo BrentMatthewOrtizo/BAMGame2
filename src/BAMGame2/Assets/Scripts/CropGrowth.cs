@@ -17,6 +17,8 @@ public class CropGrowth : MonoBehaviour
     private int _stage = 0;
     private float _timer = 0f;
     private bool _isGrowing = false;
+    private Vector3 _worldPos;
+    private FarmArea _farmArea;
 
     private void Awake()
     {
@@ -24,9 +26,11 @@ public class CropGrowth : MonoBehaviour
     }
 
     // Called when first planted
-    public void Initialize(FarmManager manager)
+    public void Initialize(FarmManager manager, FarmArea area, Vector3 position)
     {
         _sr = GetComponent<SpriteRenderer>();
+        _worldPos = position;
+        _farmArea = area;
         _stage = 0;
         _timer = 0f;
         _isGrowing = true;
@@ -36,15 +40,15 @@ public class CropGrowth : MonoBehaviour
     }
 
     // Called when loading from save
-    public void LoadFromData(FarmManager manager, int stage, float elapsed)
+    public void LoadFromData(FarmManager manager, Vector3 position, int stage, float elapsed)
     {
         _sr = GetComponent<SpriteRenderer>();
+        _worldPos = position;
         _stage = stage;
         _timer = elapsed;
-
-        _sr.sprite = growthStages[Mathf.Min(stage, growthStages.Length - 1)];
         _isGrowing = true;
 
+        _sr.sprite = growthStages[Mathf.Min(stage, growthStages.Length - 1)];
         manager.Register(this);
         StartCoroutine(Grow(manager));
     }
@@ -59,28 +63,37 @@ public class CropGrowth : MonoBehaviour
             _stage++;
         }
 
-        // 🌾 Crop fully grown — spawn items
-        Vector3 p = transform.position;
+        // 🌾 Crop fully grown — spawn scattered drops
+        SpawnDrops();
 
-        if (goldPrefab)
-            Instantiate(goldPrefab, p + new Vector3(0.1f, 0.05f), Quaternion.identity);
-
-        if (cropPrefab)
-            Instantiate(cropPrefab, p, Quaternion.identity);
-
-        if (seedPrefab)
-            Instantiate(seedPrefab, p + new Vector3(-0.1f, -0.05f), Quaternion.identity);
+        // 🧹 Let the farm area know this spot is free again
+        if (_farmArea != null)
+            _farmArea.Unregister(_worldPos);
 
         manager.Unregister(this);
         Destroy(gameObject);
     }
 
-    // Used by FarmManager when saving game state
+    private void SpawnDrops()
+    {
+        if (goldPrefab) SpawnWithScatter(goldPrefab, 0.2f);
+        if (cropPrefab) SpawnWithScatter(cropPrefab, 0.3f);
+        if (seedPrefab) SpawnWithScatter(seedPrefab, 0.25f);
+    }
+
+    private void SpawnWithScatter(GameObject prefab, float spread)
+    {
+        Vector2 randomOffset = Random.insideUnitCircle * spread;
+        Vector3 spawnPos = _worldPos + new Vector3(randomOffset.x, randomOffset.y, 0f);
+        Instantiate(prefab, spawnPos, Quaternion.identity);
+    }
+
+    // Used by FarmManager for saving crop data
     public CropData GetData()
     {
         return new CropData
         {
-            worldPos = transform.position,
+            worldPos = _worldPos,
             currentStage = _stage,
             timeElapsed = _timer
         };

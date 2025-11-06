@@ -49,14 +49,15 @@ public class FarmArea : MonoBehaviour, IInteractable
 
         var cropGO = Instantiate(prefab, playerPos, Quaternion.identity, cropParent);
         var crop = cropGO.GetComponent<CropGrowth>();
-        crop.Initialize(FarmManager.Instance);
+        crop.Initialize(FarmManager.Instance, this, playerPos);
 
         _plantedPositions.Add(playerPos);
         Debug.Log($"✅ Planted crop at {playerPos}");
     }
 
+    // Called by CropGrowth when harvested
     public void Unregister(Vector2 pos)
     {
-        _plantedPositions.Remove(pos);
+        _plantedPositions.RemoveAll(p => Vector2.Distance(p, pos) < 0.1f);
     }
 }

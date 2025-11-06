@@ -23,15 +23,8 @@ public class FarmManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        LoadCrops();
-    }
-
-    private void OnDisable()
-    {
-        SaveCrops();
-    }
+    private void Start() => LoadCrops();
+    private void OnDisable() => SaveCrops();
 
     public void Register(CropGrowth crop)
     {
@@ -42,6 +35,11 @@ public class FarmManager : MonoBehaviour
     public void Unregister(CropGrowth crop)
     {
         _activeCrops.Remove(crop);
+    }
+
+    public void MarkHarvested(Vector3 pos)
+    {
+        GameStateManager.Instance?.crops.RemoveAll(c => Vector3.Distance(c.worldPos, pos) < 0.1f);
     }
 
     private void SaveCrops()
@@ -68,7 +66,7 @@ public class FarmManager : MonoBehaviour
         {
             var go = Instantiate(cropPrefab, data.worldPos, Quaternion.identity, cropParent);
             var crop = go.GetComponent<CropGrowth>();
-            crop.LoadFromData(this, data.currentStage, data.timeElapsed);
+            crop.LoadFromData(this, data.worldPos, data.currentStage, data.timeElapsed);
             _activeCrops.Add(crop);
         }
 
