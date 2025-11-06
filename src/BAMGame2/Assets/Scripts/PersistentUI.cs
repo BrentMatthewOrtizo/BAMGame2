@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PersistantUI : MonoBehaviour
 {
     private static PersistantUI instance;
+    private GameObject pauseButton;
 
     void Awake()
     {
@@ -14,6 +16,20 @@ public class PersistantUI : MonoBehaviour
         else
         {
             Destroy(gameObject); // Prevent duplicates if you revisit a scene
+        }
+        pauseButton = GameObject.FindWithTag("PauseButton");
+    }
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
+        {
+            
+            pauseButton.SetActive(false);
+        }
+        else
+        {
+            pauseButton.SetActive(true);
         }
     }
     

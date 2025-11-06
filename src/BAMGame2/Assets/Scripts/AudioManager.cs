@@ -31,6 +31,8 @@ public class AudioManager : MonoBehaviour
         sfxSource.playOnAwake = false;
 
         SceneManager.activeSceneChanged += OnSceneChanged;
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnSceneChanged(Scene oldScene, Scene newScene)
