@@ -700,6 +700,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &648744291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 648744293}
+  - component: {fileID: 648744292}
+  m_Layer: 0
+  m_Name: PlayerWalletManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &648744292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648744291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a123d8538ffe04f9b9452dae7cd716cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
+  gold: 0
+--- !u!4 &648744293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648744291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.18925, y: -0.48702, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678187837
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 0}
 --- !u!61 &678187839
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2626,7 +2670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 0}
 --- !u!114 &1220682550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2808,7 +2851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 0}
 --- !u!61 &1322258108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3594,7 +3636,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -8127,7 +8169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd54f93e50e3f645990f8b85b8966c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmTileInteractable
-  farmingGrid: {fileID: 0}
 --- !u!61 &1952571736
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8528,3 +8569,4 @@ SceneRoots:
   - {fileID: 263455239}
   - {fileID: 2080908338}
   - {fileID: 1464053685}
+  - {fileID: 648744293}
