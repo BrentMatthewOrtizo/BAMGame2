@@ -15,6 +15,7 @@ public class ShopManager : MonoBehaviour
     public TMP_Text goldText;
     public Button buyButton;
     public TMP_Text popupText;
+    public Button exitShopButton;
 
     [Header("Animal Buttons")]
     public Button chickenButton;
@@ -69,6 +70,8 @@ public class ShopManager : MonoBehaviour
         pigButton.onClick.AddListener(() => SelectAnimal("Pig"));
         duckButton.onClick.AddListener(() => SelectAnimal("duck"));
         buyButton.onClick.AddListener(BuyAnimal);
+        exitShopButton.onClick.AddListener(CloseShop);
+        exitShopButton.gameObject.SetActive(false);
 
         wallet.OnGoldChanged += UpdateGoldDisplay;
         UpdateGoldDisplay(wallet.gold);
@@ -101,12 +104,14 @@ public class ShopManager : MonoBehaviour
         shopOpen = true;
         
         SetLeftPanelVisible(false);
+        exitShopButton.gameObject.SetActive(true);
     }
 
     public void CloseShop()
     {
         shopCanvas.SetActive(false);
         shopOpen = false;
+        exitShopButton.gameObject.SetActive(false);
     }
 
     private void SelectAnimal(string name)
