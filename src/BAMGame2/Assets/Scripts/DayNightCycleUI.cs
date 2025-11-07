@@ -33,7 +33,8 @@ public class DayNightCycleUI : MonoBehaviour
             {
                 if (IsDay)
                 {
-                    SaveBeforeTransition();
+                    SavePlayerAndCrops();
+                    yield return new WaitForSeconds(0.25f);
                     SceneManager.LoadScene("Battle");
                     yield break;
                 }
@@ -63,10 +64,27 @@ public class DayNightCycleUI : MonoBehaviour
         timerLabel.text = $"Timer: {m:0}:{s:00}";
     }
 
-    private void SaveBeforeTransition()
+    private void SavePlayerAndCrops()
     {
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player && GameStateManager.Instance)
+        {
             GameStateManager.Instance.SavePlayer(player.transform.position);
+            Debug.Log($"💾 Saved player position: {player.transform.position}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Could not find Player or GameStateManager when saving position.");
+        }
+
+        if (FarmManager.Instance != null)
+        {
+            Debug.Log("💾 Saving crops before night transition...");
+            FarmManager.Instance.SaveCrops();
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ FarmManager not found when saving crops.");
+        }
     }
 }

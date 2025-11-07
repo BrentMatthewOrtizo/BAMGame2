@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class CropGrowth : MonoBehaviour
@@ -17,6 +18,7 @@ public class CropGrowth : MonoBehaviour
     private int _stage = 0;
     private float _timer = 0f;
     private bool _isGrowing = false;
+    private bool _paused = false;
     private Vector3 _worldPos;
     private FarmArea _farmArea;
 
@@ -25,7 +27,7 @@ public class CropGrowth : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
     }
 
-    // Called when first planted
+    // 🌱 Called when first planted
     public void Initialize(FarmManager manager, FarmArea area, Vector3 position)
     {
         _sr = GetComponent<SpriteRenderer>();
@@ -39,7 +41,7 @@ public class CropGrowth : MonoBehaviour
         StartCoroutine(Grow(manager));
     }
 
-    // Called when loading from save
+    // 🌾 Called when loading from save
     public void LoadFromData(FarmManager manager, Vector3 position, int stage, float elapsed)
     {
         _sr = GetComponent<SpriteRenderer>();
@@ -57,21 +59,29 @@ public class CropGrowth : MonoBehaviour
     {
         while (_isGrowing && _stage < growthStages.Length)
         {
+            // 🌙 Don’t grow during Battle (night) scene
+            if (SceneManager.GetActiveScene().name == "Battle" || _paused)
+            {
+                yield return null;
+                continue;
+            }
+
             _sr.sprite = growthStages[_stage];
             yield return new WaitForSeconds(timePerStage - _timer);
             _timer = 0f;
             _stage++;
         }
 
-        // 🌾 Crop fully grown — spawn scattered drops
-        SpawnDrops();
+        if (_stage >= growthStages.Length)
+        {
+            SpawnDrops();
 
-        // 🧹 Let the farm area know this spot is free again
-        if (_farmArea != null)
-            _farmArea.Unregister(_worldPos);
+            if (_farmArea != null)
+                _farmArea.Unregister(_worldPos);
 
-        manager.Unregister(this);
-        Destroy(gameObject);
+            manager.Unregister(this);
+            Destroy(gameObject);
+        }
     }
 
     private void SpawnDrops()
@@ -88,7 +98,6 @@ public class CropGrowth : MonoBehaviour
         Instantiate(prefab, spawnPos, Quaternion.identity);
     }
 
-    // Used by FarmManager for saving crop data
     public CropData GetData()
     {
         return new CropData
@@ -97,5 +106,31 @@ public class CropGrowth : MonoBehaviour
             currentStage = _stage,
             timeElapsed = _timer
         };
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (_sr == null) return;
+
+        if (scene.name == "Battle")
+        {
+            _paused = true;
+            _sr.enabled = false;  // hide
+        }
+        else if (scene.name == "Game")
+        {
+            _paused = false;
+            _sr.enabled = true;   // show again
+        }
     }
 }
