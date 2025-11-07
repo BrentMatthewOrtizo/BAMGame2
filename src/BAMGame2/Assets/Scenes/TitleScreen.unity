@@ -869,10 +869,10 @@ RectTransform:
   - {fileID: 1061539700}
   m_Father: {fileID: 1547890392}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 866.5, y: 630.8}
+  m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330478482
 MonoBehaviour:
@@ -1801,6 +1801,8 @@ MonoBehaviour:
   farmMusic: {fileID: 8300000, guid: c47abf1e87c254ddc99f76fae9333ad9, type: 3}
   itemPickupSFX: {fileID: 0}
   plantSeedSFX: {fileID: 0}
+  clickHoverSFX: {fileID: 0}
+  clickPressSFX: {fileID: 0}
 --- !u!114 &1445571446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2006,7 +2008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 71.099976, y: -61.299988}
+  m_AnchoredPosition: {x: 71.099976, y: -61.299927}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1822071281
@@ -2178,7 +2180,7 @@ GameObject:
   - component: {fileID: 1931075824}
   - component: {fileID: 1931075823}
   m_Layer: 5
-  m_Name: Image
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
     //implement later
     [Header("Sound Effects")] public AudioClip itemPickupSFX;
     public AudioClip plantSeedSFX;
+    public AudioClip clickHoverSFX;
+    public AudioClip clickPressSFX;
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
@@ -48,10 +50,12 @@ public class AudioManager : MonoBehaviour
         if (sceneName.Contains("TitleScreen"))
         {
             clipToPlay = startScreenMusic;
+            Log.Info($"Playing {clipToPlay}");
         }
         else if (sceneName.Contains("Game"))
         {
             clipToPlay = farmMusic;
+            Log.Info($"Playing {clipToPlay}");
         }
 
         if (clipToPlay != null)
