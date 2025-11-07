@@ -14,7 +14,11 @@ public class DayNightCycleUI : MonoBehaviour
     public TextMeshProUGUI timerLabel;
 
     public bool IsDay { get; private set; } = true;
-    private float timeLeft;
+    
+    public float timeLeft;
+
+    // Expose current time left safely
+    public float TimeLeft => timeLeft;
 
     private void Start()
     {

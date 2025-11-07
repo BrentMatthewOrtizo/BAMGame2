@@ -53,6 +53,9 @@ TagManager:
   - name: Crops
     uniqueID: 3525490219
     locked: 0
+  - name: NPC
+    uniqueID: 2383483983
+    locked: 0
   - name: Collision
     uniqueID: 1182903315
     locked: 0
