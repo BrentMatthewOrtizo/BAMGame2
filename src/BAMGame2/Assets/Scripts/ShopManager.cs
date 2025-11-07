@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // ✅ for scene load detection
+using UnityEngine.SceneManagement;
 
 public class ShopManager : MonoBehaviour
 {
@@ -37,7 +37,6 @@ public class ShopManager : MonoBehaviour
     private bool shopOpen = false;
     private DayNightCycleUI dayNightCycle;
 
-    // ✅ Register for scene change events
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -89,7 +88,7 @@ public class ShopManager : MonoBehaviour
         wallet.OnGoldChanged += UpdateGoldDisplay;
         UpdateGoldDisplay(wallet.gold);
 
-        shopCanvas.SetActive(false);
+        shopCanvas.SetActive(false); // ✅ ensures it starts hidden
     }
 
     private void Update()
@@ -102,28 +101,30 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    // ✅ Auto-close and reset shop when switching scenes
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Prevent shop from staying open when Game reloads
-        if (scene.name == "Game")
+        // ✅ Always close shop when loading any new scene
+        if (shopCanvas != null)
         {
-            Debug.Log("[ShopManager] Game scene reloaded — ensuring shop is closed.");
+            shopCanvas.SetActive(false);
             shopOpen = false;
-
-            if (shopCanvas != null)
-                shopCanvas.SetActive(false);
             if (exitShopButton != null)
                 exitShopButton.gameObject.SetActive(false);
+        }
+
+        // ✅ When coming back to Game scene, ensure it stays closed
+        if (scene.name == "Game")
+        {
+            Debug.Log("[ShopManager] Game scene loaded — shop reset to closed.");
+            wallet = FindObjectOfType<PlayerWallet>();
+            dayNightCycle = FindObjectOfType<DayNightCycleUI>();
         }
     }
 
     public void ToggleShop()
     {
-        if (shopOpen)
-            CloseShop();
-        else
-            OpenShop();
+        if (shopOpen) CloseShop();
+        else OpenShop();
     }
 
     public void OpenShop()
@@ -192,8 +193,6 @@ public class ShopManager : MonoBehaviour
     {
         if (goldText != null)
             goldText.text = $"Gold: {amount}";
-        else
-            Debug.LogWarning("[ShopManager] Gold text reference missing!");
     }
 
     private void ShowPopup(string message)
@@ -231,13 +230,14 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    // New Input System hook for "E" or Interact
+    // ✅ Player presses "E" to open or close
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        if (shopOpen)
-            CloseShop();
+        if (SceneManager.GetActiveScene().name != "Game") return; // 🚫 disable in Battle scene
+
+        ToggleShop();
     }
 
     public bool IsShopOpen => shopOpen;
