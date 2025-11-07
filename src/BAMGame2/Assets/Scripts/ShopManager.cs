@@ -25,6 +25,9 @@ public class ShopManager : MonoBehaviour
     private AnimalData selectedAnimal;
     private Dictionary<string, AnimalData> animals = new();
 
+    private bool shopOpen = false;
+    private DayNightCycleUI dayNightCycle;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,6 +42,8 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         wallet = FindObjectOfType<PlayerWallet>();
+        dayNightCycle = FindObjectOfType<DayNightCycleUI>();
+
         if (wallet == null)
         {
             Debug.LogError("[ShopManager] No PlayerWallet found in scene.");
@@ -46,9 +51,9 @@ public class ShopManager : MonoBehaviour
         }
 
         // Define animals
-        animals["Chicken"]  = new AnimalData("Chicken", 10, 3, 3);
-        animals["Cow"]      = new AnimalData("Cow", 20, 8, 2);
-        animals["Pig"]      = new AnimalData("Pig", 15, 5, 3);
+        animals["Chicken"] = new AnimalData("Chicken", 10, 3, 3);
+        animals["Cow"] = new AnimalData("Cow", 20, 8, 2);
+        animals["Pig"] = new AnimalData("Pig", 15, 5, 3);
         animals["Kapybara"] = new AnimalData("Kapybara", 50, 10, 10);
 
         // Hook buttons
@@ -64,17 +69,54 @@ public class ShopManager : MonoBehaviour
         shopCanvas.SetActive(false);
     }
 
+    private void Update()
+    {
+        // Allow player to close shop with E key
+        if (shopOpen && Input.GetKeyDown(KeyCode.E))
+        {
+            CloseShop();
+        }
+
+        // If day runs out, close shop automatically
+        if (shopOpen && dayNightCycle != null && dayNightCycle.IsDay && dayNightCycleTimerReachedZero())
+        {
+            Debug.Log("[ShopManager] Timer reached 0 — closing shop.");
+            CloseShop();
+        }
+    }
+
+    // Check if timer reached 0 in DayNightCycle
+    private bool dayNightCycleTimerReachedZero()
+    {
+        return dayNightCycle != null && Mathf.FloorToInt(dayNightCycleTimerValue()) <= 0;
+    }
+
+    private float dayNightCycleTimerValue()
+    {
+        // Reflection of private field "timeLeft" using encapsulated coroutine logic
+        // Instead, safer: maintain direct time tracking inside dayNightCycle
+        return (float)typeof(DayNightCycleUI).GetField("timeLeft", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(dayNightCycle);
+    }
+
+    public void ToggleShop()
+    {
+        if (shopOpen)
+            CloseShop();
+        else
+            OpenShop();
+    }
+
     public void OpenShop()
     {
         shopCanvas.SetActive(true);
         UpdateGoldDisplay(wallet.gold);
-        Time.timeScale = 0f; // Pause world
+        shopOpen = true;
     }
 
     public void CloseShop()
     {
         shopCanvas.SetActive(false);
-        Time.timeScale = 1f;
+        shopOpen = false;
     }
 
     private void SelectAnimal(string name)

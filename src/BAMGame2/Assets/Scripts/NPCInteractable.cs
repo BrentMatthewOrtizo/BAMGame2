@@ -10,11 +10,11 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log($"{npcName}: Opening shop UI...");
-        
+        Debug.Log($"{npcName}: Toggling shop UI...");
+
         if (ShopManager.Instance != null)
         {
-            ShopManager.Instance.OpenShop();
+            ShopManager.Instance.ToggleShop();
         }
         else
         {
