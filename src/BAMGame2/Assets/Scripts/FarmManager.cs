@@ -16,7 +16,7 @@ public class FarmManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Duplicate FarmManager detected! Destroying duplicate.");
+            Debug.LogWarning("Duplicate FarmManager detected! Destroying duplicate");
             Destroy(gameObject);
             return;
         }
