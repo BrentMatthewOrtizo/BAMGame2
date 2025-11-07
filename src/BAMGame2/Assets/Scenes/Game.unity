@@ -11110,7 +11110,7 @@ MonoBehaviour:
   goldText: {fileID: 528078411}
   buyButton: {fileID: 1421777375}
   popupText: {fileID: 1732479635}
-  exitShopButton: {fileID: 0}
+  exitShopButton: {fileID: 53119341}
   chickenButton: {fileID: 201791791}
   cowButton: {fileID: 395085654}
   pigButton: {fileID: 737672088}
