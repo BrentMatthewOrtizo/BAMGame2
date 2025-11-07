@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 53119343}
   - component: {fileID: 53119342}
   - component: {fileID: 53119341}
+  - component: {fileID: 53119344}
   m_Layer: 5
   m_Name: ExitShopButton
   m_TagString: Untagged
@@ -253,6 +254,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53119339}
   m_CullTransparentMesh: 1
+--- !u!114 &53119344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53119339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fad644069eaf4fc7b04e5f9270d5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  uiAudioSource: {fileID: 0}
+  customClip: {fileID: 0}
 --- !u!1 &128437274
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +598,7 @@ GameObject:
   - component: {fileID: 201791793}
   - component: {fileID: 201791792}
   - component: {fileID: 201791791}
+  - component: {fileID: 201791794}
   m_Layer: 5
   m_Name: AnimalButtonChicken
   m_TagString: Untagged
@@ -692,6 +708,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201791789}
   m_CullTransparentMesh: 1
+--- !u!114 &201791794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201791789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fad644069eaf4fc7b04e5f9270d5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  uiAudioSource: {fileID: 1723689581}
+  customClip: {fileID: 0}
 --- !u!1 &216877303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1279,7 @@ GameObject:
   - component: {fileID: 395085656}
   - component: {fileID: 395085655}
   - component: {fileID: 395085654}
+  - component: {fileID: 395085657}
   m_Layer: 5
   m_Name: AnimalButtonCow
   m_TagString: Untagged
@@ -1358,6 +1389,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395085652}
   m_CullTransparentMesh: 1
+--- !u!114 &395085657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395085652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fad644069eaf4fc7b04e5f9270d5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  uiAudioSource: {fileID: 1723689581}
+  customClip: {fileID: 0}
 --- !u!1 &414743271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,6 +1873,7 @@ GameObject:
   - component: {fileID: 557477061}
   - component: {fileID: 557477060}
   - component: {fileID: 557477059}
+  - component: {fileID: 557477062}
   m_Layer: 5
   m_Name: AnimalButtonDuck
   m_TagString: Untagged
@@ -1937,6 +1983,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557477057}
   m_CullTransparentMesh: 1
+--- !u!114 &557477062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557477057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fad644069eaf4fc7b04e5f9270d5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  uiAudioSource: {fileID: 1723689581}
+  customClip: {fileID: 0}
 --- !u!1 &590603316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,6 +2169,7 @@ GameObject:
   - component: {fileID: 678187840}
   - component: {fileID: 678187839}
   - component: {fileID: 678187841}
+  - component: {fileID: 678187838}
   m_Layer: 0
   m_Name: FarmAreaBL
   m_TagString: Untagged
@@ -2318,6 +2379,7 @@ GameObject:
   - component: {fileID: 737672090}
   - component: {fileID: 737672089}
   - component: {fileID: 737672088}
+  - component: {fileID: 737672091}
   m_Layer: 5
   m_Name: AnimalButtonPig
   m_TagString: Untagged
@@ -2427,6 +2489,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737672086}
   m_CullTransparentMesh: 1
+--- !u!114 &737672091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737672086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fad644069eaf4fc7b04e5f9270d5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  uiAudioSource: {fileID: 1723689581}
+  customClip: {fileID: 0}
 --- !u!1 &831371970
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,6 +4216,7 @@ GameObject:
   - component: {fileID: 1220682548}
   - component: {fileID: 1220682547}
   - component: {fileID: 1220682550}
+  - component: {fileID: 1220682549}
   m_Layer: 0
   m_Name: FarmAreaTL
   m_TagString: Untagged
@@ -4381,6 +4458,7 @@ GameObject:
   - component: {fileID: 1322258109}
   - component: {fileID: 1322258108}
   - component: {fileID: 1322258110}
+  - component: {fileID: 1322258107}
   m_Layer: 0
   m_Name: FarmAreaTR
   m_TagString: Untagged
@@ -5023,6 +5101,7 @@ GameObject:
   - component: {fileID: 1421777377}
   - component: {fileID: 1421777376}
   - component: {fileID: 1421777375}
+  - component: {fileID: 1421777378}
   m_Layer: 5
   m_Name: BuyButton
   m_TagString: Untagged
@@ -5132,6 +5211,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421777373}
   m_CullTransparentMesh: 1
+--- !u!114 &1421777378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421777373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fad644069eaf4fc7b04e5f9270d5526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  uiAudioSource: {fileID: 1723689581}
+  customClip: {fileID: 0}
 --- !u!114 &1445571446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6397,6 +6490,7 @@ RectTransform:
   - {fileID: 1068093457}
   - {fileID: 2085567332}
   - {fileID: 53119340}
+  - {fileID: 1723689580}
   m_Father: {fileID: 2016488512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6442,6 +6536,139 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717704177}
   m_CullTransparentMesh: 1
+--- !u!1 &1723689579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1723689580}
+  - component: {fileID: 1723689581}
+  m_Layer: 5
+  m_Name: UISoundPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1723689580
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723689579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1717704178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &1723689581
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723689579}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: e9029f6107d7b4b749fd99e1087eae5a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1726528917
 GameObject:
   m_ObjectHideFlags: 0
@@ -10596,6 +10823,7 @@ GameObject:
   - component: {fileID: 1952571737}
   - component: {fileID: 1952571736}
   - component: {fileID: 1952571738}
+  - component: {fileID: 1952571735}
   m_Layer: 0
   m_Name: FarmAreaBR
   m_TagString: Untagged
