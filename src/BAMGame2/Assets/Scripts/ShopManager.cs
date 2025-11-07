@@ -20,7 +20,13 @@ public class ShopManager : MonoBehaviour
     public Button chickenButton;
     public Button cowButton;
     public Button pigButton;
-    public Button kapybaraButton;
+    public Button duckButton;
+    
+    [Header("Animal Sprites")]
+    public Sprite chickenSprite;
+    public Sprite cowSprite;
+    public Sprite pigSprite;
+    public Sprite duckSprite;
 
     private PlayerWallet wallet;
     private AnimalData selectedAnimal;
@@ -55,13 +61,13 @@ public class ShopManager : MonoBehaviour
         animals["Chicken"] = new AnimalData("Chicken", 10, 3, 3);
         animals["Cow"] = new AnimalData("Cow", 20, 8, 2);
         animals["Pig"] = new AnimalData("Pig", 15, 5, 3);
-        animals["Kapybara"] = new AnimalData("Kapybara", 50, 10, 10);
+        animals["duck"] = new AnimalData("duck", 50, 10, 10);
 
         // Hook buttons
         chickenButton.onClick.AddListener(() => SelectAnimal("Chicken"));
         cowButton.onClick.AddListener(() => SelectAnimal("Cow"));
         pigButton.onClick.AddListener(() => SelectAnimal("Pig"));
-        kapybaraButton.onClick.AddListener(() => SelectAnimal("Kapybara"));
+        duckButton.onClick.AddListener(() => SelectAnimal("duck"));
         buyButton.onClick.AddListener(BuyAnimal);
 
         wallet.OnGoldChanged += UpdateGoldDisplay;
@@ -93,6 +99,8 @@ public class ShopManager : MonoBehaviour
         shopCanvas.SetActive(true);
         UpdateGoldDisplay(wallet.gold);
         shopOpen = true;
+        
+        SetLeftPanelVisible(false);
     }
 
     public void CloseShop()
@@ -106,6 +114,30 @@ public class ShopManager : MonoBehaviour
         selectedAnimal = animals[name];
         statsText.text = $"HP: {selectedAnimal.hp}\nDamage: {selectedAnimal.damage}\nCost: {selectedAnimal.cost} gold";
         buyButton.interactable = !selectedAnimal.isOwned;
+
+        // Update animal image based on selection
+        switch (name)
+        {
+            case "Chicken":
+                animalImage.sprite = chickenSprite;
+                break;
+            case "Cow":
+                animalImage.sprite = cowSprite;
+                break;
+            case "Pig":
+                animalImage.sprite = pigSprite;
+                break;
+            case "duck":
+                animalImage.sprite = duckSprite;
+                break;
+            default:
+                animalImage.sprite = null;
+                break;
+        }
+
+        // Make sure image is visible if it was hidden before
+        animalImage.enabled = true;
+        SetLeftPanelVisible(true);
     }
 
     private void BuyAnimal()
@@ -181,4 +213,11 @@ public class ShopManager : MonoBehaviour
 
     // Public property for clean timer access
     public bool IsShopOpen => shopOpen;
+    
+    private void SetLeftPanelVisible(bool visible)
+    {
+        animalImage.gameObject.SetActive(visible);
+        statsText.gameObject.SetActive(visible);
+        buyButton.gameObject.SetActive(visible);
+    }
 }
