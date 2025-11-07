@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (GameStateManager.Instance && GameStateManager.Instance.playerPosition != Vector3.zero)
+            transform.position = GameStateManager.Instance.playerPosition;
     }
 
     void Update()
@@ -44,4 +46,13 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
     }
+    
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 0.9f);
+    }
+#endif
+
 }
