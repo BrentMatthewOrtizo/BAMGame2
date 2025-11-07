@@ -70,21 +70,21 @@ public class DayNightCycleUI : MonoBehaviour
         if (player && GameStateManager.Instance)
         {
             GameStateManager.Instance.SavePlayer(player.transform.position);
-            Debug.Log($"💾 Saved player position: {player.transform.position}");
+            Debug.Log($"Saved player position: {player.transform.position}");
         }
         else
         {
-            Debug.LogWarning("⚠️ Could not find Player or GameStateManager when saving position.");
+            Debug.LogWarning("Could not find Player or GameStateManager when saving position.");
         }
 
         if (FarmManager.Instance != null)
         {
-            Debug.Log("💾 Saving crops before night transition...");
+            Debug.Log("Saving crops before night transition...");
             FarmManager.Instance.SaveCrops();
         }
         else
         {
-            Debug.LogWarning("⚠️ FarmManager not found when saving crops.");
+            Debug.LogWarning("FarmManager not found when saving crops.");
         }
     }
 }

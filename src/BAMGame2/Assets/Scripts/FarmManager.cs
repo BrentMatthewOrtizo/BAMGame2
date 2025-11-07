@@ -16,14 +16,14 @@ public class FarmManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("🚨 Duplicate FarmManager detected! Destroying duplicate.");
+            Debug.LogWarning("Duplicate FarmManager detected! Destroying duplicate.");
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Debug.Log($"✅ FarmManager initialized (scene: {gameObject.scene.name})");
+        Debug.Log($"FarmManager initialized (scene: {gameObject.scene.name})");
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -35,7 +35,7 @@ public class FarmManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 🌿 Only load crops when returning to Game scene
+        //Only load crops when returning to Game scene
         if (scene.name == "Game")
         {
             LoadCrops();
@@ -45,7 +45,7 @@ public class FarmManager : MonoBehaviour
     private void OnDisable()
     {
         if (Instance != this) return; // don’t save from duplicate
-        Debug.Log("💾 FarmManager OnDisable called, saving crops...");
+        Debug.Log("FarmManager OnDisable called, saving crops...");
         SaveCrops();
     }
 
@@ -54,7 +54,7 @@ public class FarmManager : MonoBehaviour
         if (!_activeCrops.Contains(crop))
         {
             _activeCrops.Add(crop);
-            Debug.Log($"🌱 Registered crop: {crop.name} at {crop.transform.position}");
+            Debug.Log($"Registered crop: {crop.name} at {crop.transform.position}");
         }
     }
 
@@ -80,7 +80,7 @@ public class FarmManager : MonoBehaviour
         }
 
         GameStateManager.Instance.SaveCrops(cropDataList);
-        Debug.Log($"💾 Saved {cropDataList.Count} crops");
+        Debug.Log($"Saved {cropDataList.Count} crops");
     }
 
     private void LoadCrops()
@@ -96,6 +96,6 @@ public class FarmManager : MonoBehaviour
             _activeCrops.Add(crop);
         }
 
-        Debug.Log($"🌿 Loaded {GameStateManager.Instance.crops.Count} crops");
+        Debug.Log($"Loaded {GameStateManager.Instance.crops.Count} crops");
     }
 }

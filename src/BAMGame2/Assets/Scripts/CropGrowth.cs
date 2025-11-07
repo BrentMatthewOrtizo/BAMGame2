@@ -26,8 +26,7 @@ public class CropGrowth : MonoBehaviour
     {
         _sr = GetComponent<SpriteRenderer>();
     }
-
-    // 🌱 Called when first planted
+    
     public void Initialize(FarmManager manager, FarmArea area, Vector3 position)
     {
         _sr = GetComponent<SpriteRenderer>();
@@ -40,8 +39,7 @@ public class CropGrowth : MonoBehaviour
         manager.Register(this);
         StartCoroutine(Grow(manager));
     }
-
-    // 🌾 Called when loading from save
+    
     public void LoadFromData(FarmManager manager, Vector3 position, int stage, float elapsed)
     {
         _sr = GetComponent<SpriteRenderer>();
@@ -59,7 +57,6 @@ public class CropGrowth : MonoBehaviour
     {
         while (_isGrowing && _stage < growthStages.Length)
         {
-            // 🌙 Don’t grow during Battle (night) scene
             if (SceneManager.GetActiveScene().name == "Battle" || _paused)
             {
                 yield return null;
