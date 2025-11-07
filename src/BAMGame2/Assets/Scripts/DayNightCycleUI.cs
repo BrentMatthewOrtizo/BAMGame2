@@ -14,7 +14,6 @@ public class DayNightCycleUI : MonoBehaviour
     public TextMeshProUGUI timerLabel;
 
     public bool IsDay { get; private set; } = true;
-    
     public float timeLeft;
 
     // Expose current time left safely
@@ -37,7 +36,15 @@ public class DayNightCycleUI : MonoBehaviour
             {
                 if (IsDay)
                 {
+                    // ✅ Ensure the shop closes before switching scenes
+                    if (ShopManager.Instance != null && ShopManager.Instance.IsShopOpen)
+                    {
+                        Debug.Log("[DayNightCycleUI] Closing shop before Battle scene...");
+                        ShopManager.Instance.CloseShop();
+                    }
+
                     SavePlayerAndCrops();
+
                     yield return new WaitForSeconds(0.25f);
                     SceneManager.LoadScene("Battle");
                     yield break;

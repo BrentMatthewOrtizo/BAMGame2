@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement; // ✅ for scene load detection
 
 public class ShopManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class ShopManager : MonoBehaviour
     public Button cowButton;
     public Button pigButton;
     public Button duckButton;
-    
+
     [Header("Animal Sprites")]
     public Sprite chickenSprite;
     public Sprite cowSprite;
@@ -36,6 +37,17 @@ public class ShopManager : MonoBehaviour
     private bool shopOpen = false;
     private DayNightCycleUI dayNightCycle;
 
+    // ✅ Register for scene change events
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,6 +55,7 @@ public class ShopManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -81,11 +94,27 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        // Close the shop automatically when the day timer ends
+        // ✅ Close the shop automatically when the day timer ends
         if (shopOpen && dayNightCycle != null && dayNightCycle.IsDay && dayNightCycle.timeLeft <= 0f)
         {
             Debug.Log("[ShopManager] Timer reached 0 — closing shop.");
             CloseShop();
+        }
+    }
+
+    // ✅ Auto-close and reset shop when switching scenes
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Prevent shop from staying open when Game reloads
+        if (scene.name == "Game")
+        {
+            Debug.Log("[ShopManager] Game scene reloaded — ensuring shop is closed.");
+            shopOpen = false;
+
+            if (shopCanvas != null)
+                shopCanvas.SetActive(false);
+            if (exitShopButton != null)
+                exitShopButton.gameObject.SetActive(false);
         }
     }
 
@@ -102,16 +131,20 @@ public class ShopManager : MonoBehaviour
         shopCanvas.SetActive(true);
         UpdateGoldDisplay(wallet.gold);
         shopOpen = true;
-        
+
         SetLeftPanelVisible(false);
         exitShopButton.gameObject.SetActive(true);
     }
 
     public void CloseShop()
     {
-        shopCanvas.SetActive(false);
+        if (shopCanvas != null)
+            shopCanvas.SetActive(false);
+
         shopOpen = false;
-        exitShopButton.gameObject.SetActive(false);
+
+        if (exitShopButton != null)
+            exitShopButton.gameObject.SetActive(false);
     }
 
     private void SelectAnimal(string name)
@@ -120,27 +153,15 @@ public class ShopManager : MonoBehaviour
         statsText.text = $"HP: {selectedAnimal.hp}\nDamage: {selectedAnimal.damage}\nCost: {selectedAnimal.cost} gold";
         buyButton.interactable = !selectedAnimal.isOwned;
 
-        // Update animal image based on selection
         switch (name)
         {
-            case "Chicken":
-                animalImage.sprite = chickenSprite;
-                break;
-            case "Cow":
-                animalImage.sprite = cowSprite;
-                break;
-            case "Pig":
-                animalImage.sprite = pigSprite;
-                break;
-            case "duck":
-                animalImage.sprite = duckSprite;
-                break;
-            default:
-                animalImage.sprite = null;
-                break;
+            case "Chicken": animalImage.sprite = chickenSprite; break;
+            case "Cow": animalImage.sprite = cowSprite; break;
+            case "Pig": animalImage.sprite = pigSprite; break;
+            case "duck": animalImage.sprite = duckSprite; break;
+            default: animalImage.sprite = null; break;
         }
 
-        // Make sure image is visible if it was hidden before
         animalImage.enabled = true;
         SetLeftPanelVisible(true);
     }
@@ -169,7 +190,10 @@ public class ShopManager : MonoBehaviour
 
     private void UpdateGoldDisplay(int amount)
     {
-        goldText.text = $"Gold: {amount}";
+        if (goldText != null)
+            goldText.text = $"Gold: {amount}";
+        else
+            Debug.LogWarning("[ShopManager] Gold text reference missing!");
     }
 
     private void ShowPopup(string message)
@@ -216,9 +240,8 @@ public class ShopManager : MonoBehaviour
             CloseShop();
     }
 
-    // Public property for clean timer access
     public bool IsShopOpen => shopOpen;
-    
+
     private void SetLeftPanelVisible(bool visible)
     {
         animalImage.gameObject.SetActive(visible);
