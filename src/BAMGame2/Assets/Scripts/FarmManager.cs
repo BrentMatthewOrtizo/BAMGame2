@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FarmManager : MonoBehaviour
 {
@@ -15,21 +16,46 @@ public class FarmManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            Debug.LogWarning("Duplicate FarmManager detected! Destroying duplicate");
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        Debug.Log($"FarmManager initialized (scene: {gameObject.scene.name})");
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start() => LoadCrops();
-    private void OnDisable() => SaveCrops();
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //Only load crops when returning to Game scene
+        if (scene.name == "Game")
+        {
+            LoadCrops();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (Instance != this) return; // don’t save from duplicate
+        Debug.Log("FarmManager OnDisable called, saving crops...");
+        SaveCrops();
+    }
 
     public void Register(CropGrowth crop)
     {
         if (!_activeCrops.Contains(crop))
+        {
             _activeCrops.Add(crop);
+            Debug.Log($"Registered crop: {crop.name} at {crop.transform.position}");
+        }
     }
 
     public void Unregister(CropGrowth crop)
@@ -42,7 +68,7 @@ public class FarmManager : MonoBehaviour
         GameStateManager.Instance?.crops.RemoveAll(c => Vector3.Distance(c.worldPos, pos) < 0.1f);
     }
 
-    private void SaveCrops()
+    public void SaveCrops()
     {
         if (GameStateManager.Instance == null) return;
 
@@ -54,7 +80,7 @@ public class FarmManager : MonoBehaviour
         }
 
         GameStateManager.Instance.SaveCrops(cropDataList);
-        Debug.Log($"💾 Saved {cropDataList.Count} crops");
+        Debug.Log($"Saved {cropDataList.Count} crops");
     }
 
     private void LoadCrops()
@@ -70,6 +96,6 @@ public class FarmManager : MonoBehaviour
             _activeCrops.Add(crop);
         }
 
-        Debug.Log($"🌿 Loaded {GameStateManager.Instance.crops.Count} crops");
+        Debug.Log($"Loaded {GameStateManager.Instance.crops.Count} crops");
     }
 }

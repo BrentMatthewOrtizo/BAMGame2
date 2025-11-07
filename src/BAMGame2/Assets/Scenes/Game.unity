@@ -2108,7 +2108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 678187840}
   - component: {fileID: 678187839}
-  - component: {fileID: 678187838}
   - component: {fileID: 678187841}
   m_Layer: 0
   m_Name: FarmAreaBL
@@ -4140,7 +4139,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1220682548}
   - component: {fileID: 1220682547}
-  - component: {fileID: 1220682549}
   - component: {fileID: 1220682550}
   m_Layer: 0
   m_Name: FarmAreaTL
@@ -4382,7 +4380,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1322258109}
   - component: {fileID: 1322258108}
-  - component: {fileID: 1322258107}
   - component: {fileID: 1322258110}
   m_Layer: 0
   m_Name: FarmAreaTR
@@ -10598,7 +10595,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1952571737}
   - component: {fileID: 1952571736}
-  - component: {fileID: 1952571735}
   - component: {fileID: 1952571738}
   m_Layer: 0
   m_Name: FarmAreaBR

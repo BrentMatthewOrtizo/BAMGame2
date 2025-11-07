@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     public Vector3 playerPosition;
 
     [Header("Crops")]
-    public List<CropData> crops = new();  // ✅ Stores crop data for saving/loading
+    public List<CropData> crops = new();  //Stores crop data for saving/loading
 
     private void Awake()
     {

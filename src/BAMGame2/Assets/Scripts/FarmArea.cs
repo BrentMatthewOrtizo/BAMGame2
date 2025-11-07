@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game399.Shared.Logic;
+
 
 [RequireComponent(typeof(Collider2D))]
 public class FarmArea : MonoBehaviour, IInteractable
@@ -10,12 +12,16 @@ public class FarmArea : MonoBehaviour, IInteractable
 
     private readonly List<Vector2> _plantedPositions = new();
     private Collider2D _collider;
+    
+    private FarmLogic _logic;
+
 
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
         if (_collider != null)
             _collider.isTrigger = true;
+        _logic = new FarmLogic(minPlantDistance);
     }
 
     public bool CanInteract() => true;
@@ -26,38 +32,36 @@ public class FarmArea : MonoBehaviour, IInteractable
 
         if (!_collider.bounds.Contains(playerPos))
         {
-            Debug.Log("❌ Player not in farm area");
+            Debug.Log("Player not in farm area");
             return;
         }
 
-        foreach (var pos in _plantedPositions)
+        // Try planting through FarmLogic instead of manual check
+        if (!_logic.TryPlant(playerPos.x, playerPos.y))
         {
-            if (Vector2.Distance(pos, playerPos) < minPlantDistance)
-            {
-                Debug.Log("❌ Too close to another crop");
-                return;
-            }
+            Debug.Log("Too close to another crop");
+            return;
         }
+
 
         // 🌱 Plant new crop
         GameObject prefab = FarmManager.Instance.cropPrefab;
         if (prefab == null)
         {
-            Debug.LogError("❌ No crop prefab set in FarmManager!");
+            Debug.LogError("No crop prefab set in FarmManager");
             return;
         }
 
         var cropGO = Instantiate(prefab, playerPos, Quaternion.identity, cropParent);
         var crop = cropGO.GetComponent<CropGrowth>();
         crop.Initialize(FarmManager.Instance, this, playerPos);
-
-        _plantedPositions.Add(playerPos);
-        Debug.Log($"✅ Planted crop at {playerPos}");
+        
+        Debug.Log($"Planted crop at {playerPos}");
     }
 
     // Called by CropGrowth when harvested
     public void Unregister(Vector2 pos)
     {
-        _plantedPositions.RemoveAll(p => Vector2.Distance(p, pos) < 0.1f);
+        _logic.Remove(pos.x, pos.y);
     }
 }
