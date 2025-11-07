@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class ShopManager : MonoBehaviour
 {
@@ -71,31 +72,12 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        // Allow player to close shop with E key
-        if (shopOpen && Input.GetKeyDown(KeyCode.E))
-        {
-            CloseShop();
-        }
-
-        // If day runs out, close shop automatically
-        if (shopOpen && dayNightCycle != null && dayNightCycle.IsDay && dayNightCycleTimerReachedZero())
+        // Close the shop automatically when the day timer ends
+        if (shopOpen && dayNightCycle != null && dayNightCycle.IsDay && dayNightCycle.timeLeft <= 0f)
         {
             Debug.Log("[ShopManager] Timer reached 0 — closing shop.");
             CloseShop();
         }
-    }
-
-    // Check if timer reached 0 in DayNightCycle
-    private bool dayNightCycleTimerReachedZero()
-    {
-        return dayNightCycle != null && Mathf.FloorToInt(dayNightCycleTimerValue()) <= 0;
-    }
-
-    private float dayNightCycleTimerValue()
-    {
-        // Reflection of private field "timeLeft" using encapsulated coroutine logic
-        // Instead, safer: maintain direct time tracking inside dayNightCycle
-        return (float)typeof(DayNightCycleUI).GetField("timeLeft", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(dayNightCycle);
     }
 
     public void ToggleShop()
@@ -187,4 +169,16 @@ public class ShopManager : MonoBehaviour
             isOwned = false;
         }
     }
+
+    // New Input System hook for "E" or Interact
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (shopOpen)
+            CloseShop();
+    }
+
+    // Public property for clean timer access
+    public bool IsShopOpen => shopOpen;
 }
