@@ -45,10 +45,12 @@ public class Collectible : MonoBehaviour
                 break;
 
             case CollectibleType.Seed:
+                InventoryManager.Instance.AddItem("Seed");
                 Log.Info("[Collectible] Player picked up a seed (inventory feature pending).");
                 break;
 
             case CollectibleType.Crop:
+                InventoryManager.Instance.AddItem("Crop");
                 Log.Info("[Collectible] Player picked up a crop (inventory feature pending).");
                 break;
         }
