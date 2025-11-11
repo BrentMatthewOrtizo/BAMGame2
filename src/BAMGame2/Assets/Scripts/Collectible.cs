@@ -37,6 +37,7 @@ public class Collectible : MonoBehaviour
                     PlayerWallet.Instance.AddGold(amount);
                     Log.Info($"[Collectible] Player collected {amount} gold. " +
                               $"Total gold: {PlayerWallet.Instance.gold}");
+                    Destroy(gameObject); //maybe move later
                 }
                 else
                 {
@@ -48,7 +49,21 @@ public class Collectible : MonoBehaviour
                 if (InventoryManager.Instance != null)
                 {
                     Log.Info("[Collectible] Player picked up a seed (inventory feature pending).");
-                    InventoryManager.Instance.AddItem("Seed");
+                    
+                    Item item = gameObject.GetComponent<Item>(); //maybe?
+                    if (item != null)
+                    {
+                        //add item to list
+                        bool itemAdded = InventoryManager.Instance.AddItem(gameObject); //maybe?
+
+                        if (itemAdded)
+                        {
+                            //add to itemPrefabs array in inventorymanager?
+                            Destroy(gameObject); 
+                        }
+                    }
+                    
+                    // InventoryManager.Instance.AddItem("Seed"); //add item to list
                 } 
                 else
                 {
@@ -59,8 +74,9 @@ public class Collectible : MonoBehaviour
             case CollectibleType.Crop:
                 if (InventoryManager.Instance != null)
                 {
-                    InventoryManager.Instance.AddItem("Crop");
+                    // implement inventory for crops after solidifying seeds
                     Log.Info("[Collectible] Player picked up a crop (inventory feature pending).");
+                    Destroy(gameObject); //move later
                 }
                 else
                 {
@@ -69,6 +85,6 @@ public class Collectible : MonoBehaviour
                 break;
         }
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 }

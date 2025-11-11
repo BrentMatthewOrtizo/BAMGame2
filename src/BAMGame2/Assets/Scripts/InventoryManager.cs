@@ -15,14 +15,14 @@ public class InventoryManager : MonoBehaviour
     public int slotCount;
 
     [Header("Inventory Items")]
-    [SerializeField] private List<string> items = new List<string>(); 
-    //change to List<GameObject> itemPrefabs = new List<GameObject>() ??
+
+    //private List<GameObject> itemPrefabList = new List<GameObject>(); 
 
     public GameObject[] itemPrefabs; //for testing
-
-    // Optional: event system to notify UI or other systems
-    public delegate void InventoryChanged(List<string> newInventory);
-    public event InventoryChanged OnInventoryChanged;
+    
+// Optional: event system to notify UI or other systems
+    //public delegate void InventoryChanged(List<string> newInventory);
+    //public event InventoryChanged OnInventoryChanged;
 
     void Start()
     {
@@ -54,7 +54,6 @@ public class InventoryManager : MonoBehaviour
     {
         if (Keyboard.current?.tabKey.wasPressedThisFrame == true)
         {
-            //inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
             if (inventoryCanvas == null)
             {
                 Log.Info("Inventory panel reference is missing!");
@@ -64,44 +63,21 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Adds an item to the inventory list.
-    /// </summary>
-    public void AddItem(string itemName)
+    public bool AddItem(GameObject itemPrefab)
     {
-        if (string.IsNullOrEmpty(itemName))
-            return;
-
-        items.Add(itemName);
-        OnInventoryChanged?.Invoke(items);
-        Log.Info($"[Inventory] Added item: {itemName}. Total items: {items.Count}");
-    }
-
-    /// <summary>
-    /// Removes an item from the inventory list.
-    /// </summary>
-    public void RemoveItem(string itemName)
-    {
-        if (items.Remove(itemName))
+        //look for empty slot
+        foreach (Transform slotTransform in inventoryPanel.transform)
         {
-            OnInventoryChanged?.Invoke(items);
-            Log.Info($"[Inventory] Removed item: {itemName}. Total items: {items.Count}");
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem == null) //has slot and is an empty slot
+            {
+                GameObject newItem = Instantiate(itemPrefab, slotTransform);
+                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                slot.currentItem = newItem;
+                return true;
+            }
         }
-    }
-
-    /// <summary>
-    /// Checks if the inventory contains a specific item.
-    /// </summary>
-    public bool HasItem(string itemName)
-    {
-        return items.Contains(itemName);
-    }
-
-    /// <summary>
-    /// Returns a copy of the current inventory list.
-    /// </summary>
-    public List<string> GetItems()
-    {
-        return new List<string>(items);
+        Log.Warn("Inventory is full!");
+        return false;
     }
 }
