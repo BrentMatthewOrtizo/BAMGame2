@@ -45,13 +45,27 @@ public class Collectible : MonoBehaviour
                 break;
 
             case CollectibleType.Seed:
-                InventoryManager.Instance.AddItem("Seed");
-                Log.Info("[Collectible] Player picked up a seed (inventory feature pending).");
+                if (InventoryManager.Instance != null)
+                {
+                    Log.Info("[Collectible] Player picked up a seed (inventory feature pending).");
+                    InventoryManager.Instance.AddItem("Seed");
+                } 
+                else
+                {
+                    Log.Warn("[Collectible] InventoryManager.Instance is null – cannot track Seeds.");
+                }
                 break;
 
             case CollectibleType.Crop:
-                InventoryManager.Instance.AddItem("Crop");
-                Log.Info("[Collectible] Player picked up a crop (inventory feature pending).");
+                if (InventoryManager.Instance != null)
+                {
+                    InventoryManager.Instance.AddItem("Crop");
+                    Log.Info("[Collectible] Player picked up a crop (inventory feature pending).");
+                }
+                else
+                {
+                    Log.Warn("[Collectible] InventoryManager.Instance is null – cannot track Crops.");
+                }
                 break;
         }
 

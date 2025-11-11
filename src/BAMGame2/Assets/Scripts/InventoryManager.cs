@@ -2,19 +2,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game399.Shared.Diagnostics;
 using Game.Runtime;
+using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
     private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
     public static InventoryManager Instance { get; private set; }
 
+    public GameObject inventoryCanvas;
+    public GameObject inventoryPanel;
+    public GameObject slotPrefab;
+    public int slotCount;
+
     [Header("Inventory Items")]
-    [SerializeField] private List<string> items = new List<string>();
+    [SerializeField] private List<string> items = new List<string>(); 
+    //change to List<GameObject> itemPrefabs = new List<GameObject>() ??
+
+    public GameObject[] itemPrefabs; //for testing
 
     // Optional: event system to notify UI or other systems
     public delegate void InventoryChanged(List<string> newInventory);
     public event InventoryChanged OnInventoryChanged;
 
+    void Start()
+    {
+        for (int i = 0; i < slotCount; i++)
+        {
+            Slot slot = Instantiate(slotPrefab, inventoryPanel.transform).GetComponent<Slot>();
+            if (i < itemPrefabs.Length)
+            {
+                GameObject item = Instantiate(itemPrefabs[i], slot.transform);
+                item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; //makes sure item is in the center of the slot
+                slot.currentItem = item;
+            }
+        }
+        inventoryCanvas.SetActive(false);
+    }
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,6 +48,20 @@ public class InventoryManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Update()
+    {
+        if (Keyboard.current?.tabKey.wasPressedThisFrame == true)
+        {
+            //inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+            if (inventoryCanvas == null)
+            {
+                Log.Info("Inventory panel reference is missing!");
+                return;
+            }
+            inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+        }
     }
 
     /// <summary>

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2064504616329990646}
   - component: {fileID: 5789276871499782625}
   - component: {fileID: 724541261534228395}
-  m_Layer: 0
+  - component: {fileID: 2040283368204144494}
+  m_Layer: 5
   m_Name: Wheat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,3 +143,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
   type: 2
   amount: 1
+--- !u!114 &2040283368204144494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081704548050042293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3ec893e3dd743eaae8f1d3895c3f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDragHandler
