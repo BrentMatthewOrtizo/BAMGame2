@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     Transform originalParent; // used to snap back to original slot position
     CanvasGroup canvasGroup;
+    Canvas targetCanvas;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        targetCanvas = GetComponentInParent<Canvas>();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
         originalParent = transform.parent; //save OG parent
-        transform.SetParent(transform.root); // above other canvas components
+        // Reparent to the Canvas
+        transform.SetParent(targetCanvas.transform, worldPositionStays: true); // above other canvas components
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f; //alpha is transparency--semi transparent while dragging
     }
