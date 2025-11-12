@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
     public static InventoryManager Instance { get; private set; }
 
-    public GameObject inventoryCanvas;
+    public GameObject inventoryTab;
     public GameObject inventoryPanel;
     public GameObject slotPrefab;
     public int slotCount;
@@ -37,7 +37,8 @@ public class InventoryManager : MonoBehaviour
                 slot.currentItem = item;
             }
         }
-        inventoryCanvas.SetActive(false);
+        inventoryPanel.SetActive(false);
+        inventoryTab.SetActive(false);
     }
     
     private void Awake()
@@ -62,12 +63,13 @@ public class InventoryManager : MonoBehaviour
     {
         if (Keyboard.current?.tabKey.wasPressedThisFrame == true)
         {
-            if (inventoryCanvas == null)
+            if (inventoryPanel == null)
             {
                 Log.Info("Inventory panel reference is missing!");
                 return;
             }
-            inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            inventoryTab.SetActive(!inventoryPanel.activeSelf);
             AudioManager.Instance.PlayMousePressSFX();
         }
     }
@@ -76,7 +78,8 @@ public class InventoryManager : MonoBehaviour
     {
         if (scene.name == "Game")
         {
-            inventoryCanvas.SetActive(false);
+            inventoryPanel.SetActive(false);
+            inventoryTab.SetActive(false);
         }
     }
 

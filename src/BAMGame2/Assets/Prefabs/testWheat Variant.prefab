@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: -210883329312410093, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
+      propertyPath: Name
+      value: Wheat
+      objectReference: {fileID: 0}
     - target: {fileID: 2429149506507224529, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

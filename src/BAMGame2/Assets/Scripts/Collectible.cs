@@ -59,6 +59,7 @@ public class Collectible : MonoBehaviour
                         if (itemAdded)
                         {
                             //add to itemPrefabs array in inventorymanager?
+                            gameObject.GetComponent<Item>().PickUp();
                             Destroy(gameObject); 
                             AudioManager.Instance.PlayItemPickupSFX();
                         }

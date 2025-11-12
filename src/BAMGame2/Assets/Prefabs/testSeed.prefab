@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   ID: 1
+  Name: Seed
 --- !u!212 &7371049957813627549
 SpriteRenderer:
   m_ObjectHideFlags: 0
