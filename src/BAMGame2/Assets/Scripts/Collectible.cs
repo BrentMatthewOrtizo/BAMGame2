@@ -45,10 +45,11 @@ public class Collectible : MonoBehaviour
                 }
                 break;
 
+            case CollectibleType.Crop:
             case CollectibleType.Seed:
                 if (InventoryManager.Instance != null)
                 {
-                    Log.Info("[Collectible] Player picked up a seed (inventory feature pending).");
+                    Log.Info("[Collectible] Player collected an item.");
                     
                     Item item = gameObject.GetComponent<Item>(); //maybe?
                     if (item != null)
@@ -72,21 +73,6 @@ public class Collectible : MonoBehaviour
                     Log.Warn("[Collectible] InventoryManager.Instance is null – cannot track Seeds.");
                 }
                 break;
-
-            case CollectibleType.Crop:
-                if (InventoryManager.Instance != null)
-                {
-                    // implement inventory for crops after solidifying seeds
-                    Log.Info("[Collectible] Player picked up a crop (inventory feature pending).");
-                    Destroy(gameObject); //move later
-                }
-                else
-                {
-                    Log.Warn("[Collectible] InventoryManager.Instance is null – cannot track Crops.");
-                }
-                break;
         }
-
-        // Destroy(gameObject);
     }
 }

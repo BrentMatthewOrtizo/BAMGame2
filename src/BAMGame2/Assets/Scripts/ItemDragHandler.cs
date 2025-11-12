@@ -1,9 +1,13 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,  IPointerClickHandler
 {
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
+    
     Transform originalParent; // used to snap back to original slot position
     CanvasGroup canvasGroup;
     Canvas targetCanvas;
@@ -67,5 +71,55 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Log.Info($"right click is being called {eventData.pointerDrag.name}");
+            //Split the Stack
+            SplitStack();
+        }
+    }
+
+    private void SplitStack()
+    {
+        
+        Item item = GetComponent<Item>();
+        if (item == null || item.quantity <= 1)
+        {
+            return;
+        }
+        
+        int splitAmount = item.quantity / 2;
+        if (splitAmount <= 0)
+        {
+            return;
+        }
+        item.RemoveFromStack(splitAmount);
+
+        GameObject newItem = item.CloneItem(splitAmount);
+        
+        if (InventoryManager.Instance == null || newItem == null)
+        {
+            return;
+        }
+
+        foreach (Transform slotTransform in InventoryManager.Instance.inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem == null)
+            {
+                slot.currentItem =  newItem;
+                newItem.transform.SetParent(slot.transform);
+                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                return;
+            }
+        }
+        
+        //no empty slot - return to stack
+        item.AddToStack(splitAmount);
+        Destroy(newItem);
     }
 }

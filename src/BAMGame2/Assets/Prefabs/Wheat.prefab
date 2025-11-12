@@ -120,9 +120,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6016995199446127389, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6088230313494435280, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
       propertyPath: m_Name
-      value: testWheat Variant
+      value: Wheat
       objectReference: {fileID: 0}
     - target: {fileID: 6760088340900318673, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
       propertyPath: m_Sprite

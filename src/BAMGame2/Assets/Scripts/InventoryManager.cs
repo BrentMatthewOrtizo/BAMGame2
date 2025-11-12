@@ -85,6 +85,28 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItem(GameObject itemPrefab)
     {
+        Item itemToAdd = itemPrefab.GetComponent<Item>();
+        if (itemToAdd == null)
+        {
+            return false;
+        }
+        // check if item type is already in inventory
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem != null) //has slot and is occupied
+            {
+                if (slot.currentItem.GetComponent<Collectible>().type == itemToAdd.GetComponent<Collectible>().type)
+                {
+                    //same item, stack item
+                    Item slotItem = slot.currentItem.GetComponent<Item>();
+                    slotItem.AddToStack();
+                    return true;
+                }
+                // return true;
+            }
+        }
+        
         //look for empty slot
         foreach (Transform slotTransform in inventoryPanel.transform)
         {
