@@ -3,6 +3,7 @@ using UnityEngine;
 using Game399.Shared.Diagnostics;
 using Game.Runtime;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -48,6 +49,13 @@ public class InventoryManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDestroy()
+    {
+        // Important: remove event subscription to avoid duplicates
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void Update()
@@ -60,6 +68,15 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
             inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+            AudioManager.Instance.PlayMousePressSFX();
+        }
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Game")
+        {
+            inventoryCanvas.SetActive(false);
         }
     }
 

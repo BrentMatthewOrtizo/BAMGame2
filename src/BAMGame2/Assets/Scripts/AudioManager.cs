@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Game399.Shared.Diagnostics;
 using Game.Runtime;
+using UnityEngine.EventSystems;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviour, IPointerEnterHandler
 {
 
     private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
@@ -17,7 +18,7 @@ public class AudioManager : MonoBehaviour
     [Header("Sound Effects")] public AudioClip itemPickupSFX;
     public AudioClip plantSeedSFX;
     public AudioClip clickHoverSFX;
-    public AudioClip clickPressSFX;
+    public AudioClip mousePressSFX;
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
@@ -25,6 +26,15 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
         musicSource.playOnAwake = false;
@@ -34,7 +44,7 @@ public class AudioManager : MonoBehaviour
 
         SceneManager.activeSceneChanged += OnSceneChanged;
         
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     private void OnSceneChanged(Scene oldScene, Scene newScene)
@@ -70,5 +80,26 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.Stop();
         }
+    }
+    
+    // SOUND EFFECTS
+    public void PlayMousePressSFX()
+    {
+        sfxSource.PlayOneShot(mousePressSFX);
+    }
+    
+    public void PlayClickHoverSFX()
+    {
+        sfxSource.PlayOneShot(clickHoverSFX);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        PlayClickHoverSFX();
+    }
+
+    public void PlayItemPickupSFX()
+    {
+        sfxSource.PlayOneShot(itemPickupSFX);
     }
 }

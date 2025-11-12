@@ -60,6 +60,7 @@ public class Collectible : MonoBehaviour
                         {
                             //add to itemPrefabs array in inventorymanager?
                             Destroy(gameObject); 
+                            AudioManager.Instance.PlayItemPickupSFX();
                         }
                     }
                     

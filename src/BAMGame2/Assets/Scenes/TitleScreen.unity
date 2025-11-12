@@ -168,7 +168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.8, y: 107.61}
+  m_AnchoredPosition: {x: 16.7, y: 129.5}
   m_SizeDelta: {x: 221.309, y: 96.755}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &76214757
@@ -193,8 +193,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BAM.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cf8f03af50f4841da8dc025ac759ece5, type: 2}
-  m_sharedMaterial: {fileID: 1645275986819736762, guid: cf8f03af50f4841da8dc025ac759ece5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 214c92a66482e4299b296a7afd26ab7f, type: 2}
+  m_sharedMaterial: {fileID: -5266959678763806956, guid: 214c92a66482e4299b296a7afd26ab7f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -343,8 +343,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: TM
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cf8f03af50f4841da8dc025ac759ece5, type: 2}
-  m_sharedMaterial: {fileID: 1645275986819736762, guid: cf8f03af50f4841da8dc025ac759ece5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 214c92a66482e4299b296a7afd26ab7f, type: 2}
+  m_sharedMaterial: {fileID: -5266959678763806956, guid: 214c92a66482e4299b296a7afd26ab7f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -588,10 +588,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1876576662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 14.9, y: -39.12}
-  m_SizeDelta: {x: 317.8519, y: 43.3393}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 180}
+  m_SizeDelta: {x: 317.8519, y: 43.339294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225066402
 MonoBehaviour:
@@ -640,14 +640,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -705,6 +705,7 @@ GameObject:
   - component: {fileID: 292974148}
   - component: {fileID: 292974147}
   - component: {fileID: 292974150}
+  - component: {fileID: 292974151}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -728,7 +729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: 8.5}
   m_SizeDelta: {x: 305, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292974147
@@ -837,6 +838,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41daf902bb2f241649cf470a69250b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartScreenManager
+--- !u!114 &292974151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292974145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8009a450f1824d8098deafbd12df3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
 --- !u!1 &330478480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,6 +1164,7 @@ GameObject:
   - component: {fileID: 585857805}
   - component: {fileID: 585857804}
   - component: {fileID: 585857806}
+  - component: {fileID: 585857807}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -1272,6 +1286,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &585857807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585857802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8009a450f1824d8098deafbd12df3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
 --- !u!1 &601677081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,6 +1551,7 @@ GameObject:
   - component: {fileID: 1049763046}
   - component: {fileID: 1049763045}
   - component: {fileID: 1049763047}
+  - component: {fileID: 1049763048}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1646,6 +1673,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1049763048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049763043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8009a450f1824d8098deafbd12df3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
 --- !u!1 &1061539699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,10 +1839,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   startScreenMusic: {fileID: 8300000, guid: 4321e997f4cc749a2a4a9b51c9f6eb14, type: 3}
   farmMusic: {fileID: 8300000, guid: c47abf1e87c254ddc99f76fae9333ad9, type: 3}
-  itemPickupSFX: {fileID: 0}
+  itemPickupSFX: {fileID: 8300000, guid: ab3dde378a92c4099ab18ba0854d49a0, type: 3}
   plantSeedSFX: {fileID: 0}
-  clickHoverSFX: {fileID: 0}
-  clickPressSFX: {fileID: 0}
+  clickHoverSFX: {fileID: 8300000, guid: 3abeb8db7cbe94ca48957a02bab82a46, type: 3}
+  mousePressSFX: {fileID: 8300000, guid: 0b0f6028787df4713949f4e624b5f2b5, type: 3}
 --- !u!114 &1445571446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,6 +2308,7 @@ GameObject:
   - component: {fileID: 2132788039}
   - component: {fileID: 2132788038}
   - component: {fileID: 2132788040}
+  - component: {fileID: 2132788041}
   m_Layer: 5
   m_Name: button
   m_TagString: PauseButton
@@ -2389,6 +2429,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2132788041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132788036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8009a450f1824d8098deafbd12df3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -8089476030837148358}
   - component: {fileID: 6016995199446127389}
   m_Layer: 5
-  m_Name: testItem
+  m_Name: testSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2244004397112234398, guid: 03c370868e98e47389b4054fd78d97df, type: 3}
+  m_Sprite: {fileID: -5774877164156790999, guid: 03c370868e98e47389b4054fd78d97df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_SortingLayerID: -920108689
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2244004397112234398, guid: 03c370868e98e47389b4054fd78d97df, type: 3}
+  m_Sprite: {fileID: -5774877164156790999, guid: 03c370868e98e47389b4054fd78d97df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

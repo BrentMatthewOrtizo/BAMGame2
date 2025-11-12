@@ -110,5 +110,5 @@ MonoBehaviour:
   - {fileID: 8954413170907878631, guid: 03c370868e98e47389b4054fd78d97df, type: 3}
   timePerStage: 1
   goldPrefab: {fileID: 8881262897486949895, guid: dc7a03034cfd1d54ca584af181fbff24, type: 3}
-  cropPrefab: {fileID: 1081704548050042293, guid: 4bbd9b55710fb9548ae8a5f7573cea6f, type: 3}
-  seedPrefab: {fileID: 6706803943369818003, guid: 94ce2309fe23a2d41bb54fd8ef8fe559, type: 3}
+  cropPrefab: {fileID: 6105932745888213632, guid: 575ce5bbd4f964db6b20a03be6c225a8, type: 3}
+  seedPrefab: {fileID: 5728398444533582491, guid: d447efe236c294a62891d9441397c35d, type: 3}

@@ -18,17 +18,20 @@ public class PauseMenu : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             pauseMenuPanel.SetActive(!pauseMenuPanel.activeSelf);
+            AudioManager.Instance.PlayMousePressSFX();
         }
     }
 
     public void Interact()
     {
         pauseMenuPanel.SetActive(!pauseMenuPanel.activeSelf);
+        // AudioManager.Instance.PlayMousePressSFX();
     }
 
     public void Exit()
     {
         SceneManager.LoadSceneAsync(0);
         pauseMenuPanel.SetActive(false);
+        // AudioManager.Instance.PlayMousePressSFX();
     }
 }
