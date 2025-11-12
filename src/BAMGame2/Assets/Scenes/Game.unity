@@ -5453,6 +5453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6befb70cebb4e6141991bd88a889c146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWatering
+  animator: {fileID: 1453641718}
+  playerMovement: {fileID: 1453641716}
+  wateringDuration: 1
 --- !u!1 &1464053684
 GameObject:
   m_ObjectHideFlags: 0
@@ -5499,11 +5502,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FarmManager
   cropPrefab: {fileID: 7406706770422914990, guid: fef600c950679f0408aea5a6474d6e5b, type: 3}
   cropParent: {fileID: 2080908338}
-  wateringRadius: 1
+  wateringRadius: 0.8
   cropLayer:
     serializedVersion: 2
     m_Bits: 8
-  playerAnimator: {fileID: 0}
 --- !u!114 &1501236853
 MonoBehaviour:
   m_ObjectHideFlags: 0

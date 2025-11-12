@@ -1,31 +1,57 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerWatering : MonoBehaviour
 {
-    public void OnWater(InputAction.CallbackContext context)
+    [Header("References")]
+    public Animator animator;
+    public PlayerMovement playerMovement;
+    public float wateringDuration = 0.8f;
+
+    private Rigidbody2D rb;
+    private bool isWatering = false;
+
+    private void Start()
     {
-        if (!context.performed)
-            return;
-
-        if (FarmManager.Instance == null)
-        {
-            Debug.LogWarning("💧 No FarmManager found — cannot water crops.");
-            return;
-        }
-
-        // Use FarmManager’s watering radius setting
-        FarmManager.Instance.WaterNearbyCrops(transform.position, FarmManager.Instance.wateringRadius);
-        Debug.Log($"💧 Watered crops near {transform.position}");
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Optional: visualization aid
-    private void OnDrawGizmosSelected()
+    private void Update()
     {
-        if (FarmManager.Instance != null)
+        if (!isWatering && Keyboard.current.fKey.wasPressedThisFrame)
         {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, FarmManager.Instance.wateringRadius);
+            StartCoroutine(HandleWatering());
         }
+    }
+
+    private IEnumerator HandleWatering()
+    {
+        isWatering = true;
+
+        // 🛑 Stop movement immediately
+        rb.linearVelocity = Vector2.zero;
+        playerMovement.enabled = false;
+
+        // 🎬 Play watering animation
+        animator.SetBool("isWatering", true);
+
+        // 🔁 Ensure facing direction is preserved
+        Vector2 facingDir = playerMovement.LastMoveDir;
+        animator.SetFloat("LastInputX", facingDir.x);
+        animator.SetFloat("LastInputY", facingDir.y);
+
+        // 💧 Water crops nearby
+        if (FarmManager.Instance != null)
+            FarmManager.Instance.WaterNearbyCrops(transform.position, FarmManager.Instance.wateringRadius);
+
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(wateringDuration);
+
+        // ✅ Resume movement
+        animator.SetBool("isWatering", false);
+        playerMovement.enabled = true;
+        isWatering = false;
     }
 }

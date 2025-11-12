@@ -13,7 +13,6 @@ public class FarmManager : MonoBehaviour
     [Header("Watering Settings")]
     public float wateringRadius = 2.5f; // How far the watering reaches
     public LayerMask cropLayer; // assign "Crop" layer in Inspector
-    public Animator playerAnimator; // optional for watering animation
 
     private readonly List<CropGrowth> _activeCrops = new();
 
