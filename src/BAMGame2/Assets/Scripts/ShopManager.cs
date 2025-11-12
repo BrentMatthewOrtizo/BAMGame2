@@ -49,8 +49,8 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
-        wallet = FindObjectOfType<PlayerWallet>();
-        dayNightCycle = FindObjectOfType<DayNightCycleUI>();
+        wallet = FindFirstObjectByType<PlayerWallet>();
+        dayNightCycle = FindFirstObjectByType<DayNightCycleUI>();
 
         if (wallet == null)
         {

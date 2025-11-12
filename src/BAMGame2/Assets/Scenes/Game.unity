@@ -2160,7 +2160,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.8273764, y: 2.8726282}
+  m_Size: {x: 4.159799, y: 2.490062}
   m_EdgeRadius: 0
 --- !u!4 &678187840
 Transform:
@@ -2189,7 +2189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmArea
-  minPlantDistance: 0.5
+  minPlantDistance: 0.6
   cropParent: {fileID: 2080908338}
 --- !u!1 &691799133
 GameObject:
@@ -4169,7 +4169,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -4.0356455, y: 2.2515488}
+  m_Offset: {x: -4.049697, y: 2.295691}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4179,7 +4179,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.8273764, y: 2.8726282}
+  m_Size: {x: 4.1597986, y: 2.4900622}
   m_EdgeRadius: 0
 --- !u!4 &1220682548
 Transform:
@@ -4208,7 +4208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmArea
-  minPlantDistance: 0.5
+  minPlantDistance: 0.6
   cropParent: {fileID: 2080908338}
 --- !u!1 &1239691509
 GameObject:
@@ -4408,7 +4408,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.8273764, y: 2.8726282}
+  m_Size: {x: 4.159799, y: 2.490062}
   m_EdgeRadius: 0
 --- !u!4 &1322258109
 Transform:
@@ -4437,7 +4437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmArea
-  minPlantDistance: 0.5
+  minPlantDistance: 0.6
   cropParent: {fileID: 2080908338}
 --- !u!1 &1352393750
 GameObject:
@@ -5125,6 +5125,7 @@ GameObject:
   - component: {fileID: 1453641716}
   - component: {fileID: 1453641718}
   - component: {fileID: 1453641719}
+  - component: {fileID: 1453641720}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5351,6 +5352,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 58b94c7e-ffb0-4425-b70e-59199cb76056
     m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1453641720}
+        m_TargetAssemblyTypeName: PlayerWatering, Assembly-CSharp
+        m_MethodName: OnWater
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d8da5715-81b9-4714-aea2-7dfe92b1fc1e
+    m_ActionName: 'Player/Water[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5424,6 +5441,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8125, y: 1.3313478}
   m_EdgeRadius: 0
+--- !u!114 &1453641720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453641711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6befb70cebb4e6141991bd88a889c146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWatering
 --- !u!1 &1464053684
 GameObject:
   m_ObjectHideFlags: 0
@@ -5470,6 +5499,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FarmManager
   cropPrefab: {fileID: 7406706770422914990, guid: fef600c950679f0408aea5a6474d6e5b, type: 3}
   cropParent: {fileID: 2080908338}
+  wateringRadius: 1
+  cropLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  playerAnimator: {fileID: 0}
 --- !u!114 &1501236853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10611,7 +10645,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.8273764, y: 2.8726282}
+  m_Size: {x: 4.159799, y: 2.490062}
   m_EdgeRadius: 0
 --- !u!4 &1952571737
 Transform:
@@ -10640,7 +10674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560bf3c226d78b744b26fed8815279d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmArea
-  minPlantDistance: 0.5
+  minPlantDistance: 0.6
   cropParent: {fileID: 2080908338}
 --- !u!1 &2016488508
 GameObject:
