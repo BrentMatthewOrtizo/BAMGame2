@@ -49,28 +49,48 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (dropSlot != null)
         {
-            //condition 1: Dragging item to an occupied slot SWAPS the two items
+            
             if (dropSlot.currentItem != null) //slot has an item
             {
-                dropSlot.currentItem.transform.SetParent(originalSlot.transform);
-                originalSlot.currentItem = dropSlot.currentItem;
-                
-                dropSlot.currentItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // snaps to middle of slot
+                Item draggedItem = GetComponent<Item>();
+                Item targetItem = dropSlot.currentItem.GetComponent<Item>();
+                if (draggedItem.ID == targetItem.ID)
+                {
+                    targetItem.AddToStack(draggedItem.quantity);
+                    originalSlot.currentItem = null;
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    //SWAP the two items
+                    dropSlot.currentItem.transform.SetParent(originalSlot.transform);
+                    originalSlot.currentItem = dropSlot.currentItem;
+                    
+                    dropSlot.currentItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // snaps to middle of slot
+                    
+                    //move item into drop slot
+                    transform.SetParent(dropSlot.transform);
+                    dropSlot.currentItem = gameObject; 
+                    
+                    GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                }
             }
             else
             {
                 originalSlot.currentItem = null;
+                
+                //move item into drop slot
+                transform.SetParent(dropSlot.transform);
+                dropSlot.currentItem = gameObject; 
             }
-            transform.SetParent(dropSlot.transform);
-            dropSlot.currentItem = gameObject; 
         }
         else
         {
             //no slot drop point
             transform.SetParent(originalParent);
+            
+            GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
-        
-        GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
     public void OnPointerClick(PointerEventData eventData)
