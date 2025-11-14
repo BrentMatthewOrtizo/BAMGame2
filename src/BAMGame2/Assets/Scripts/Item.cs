@@ -1,9 +1,13 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
+    
     public int ID;
     public string Name;
     public int quantity = 1;
@@ -52,5 +56,10 @@ public class Item : MonoBehaviour
         {
             ItemPickUpUIController.Instance.ShowItemPickUp(Name, itemIcon);
         }
+    }
+
+    public virtual void UseItem()
+    {
+        Log.Info("Using " + Name);
     }
 }

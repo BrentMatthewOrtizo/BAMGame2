@@ -91,7 +91,6 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 Log.Warn("No inventory data found to be loaded.");
-                Log.Warn("No inventory data found to be loaded.");
             }
         }
     }
