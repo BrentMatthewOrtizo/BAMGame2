@@ -12,6 +12,9 @@ public class ShopManager : MonoBehaviour
     [Header("Prefab")]
     public GameObject shopCanvasPrefab;
 
+    [Header("Animals Sold Here")]
+    public List<AnimalDefinition> animalsForSale;
+
     // Runtime UI references
     private GameObject shopCanvas;
     private Image animalImage;
@@ -26,19 +29,16 @@ public class ShopManager : MonoBehaviour
     private Button pigButton;
     private Button duckButton;
 
-    [Header("Animal Sprites")]
-    public Sprite chickenSprite;
-    public Sprite cowSprite;
-    public Sprite pigSprite;
-    public Sprite duckSprite;
-
     private PlayerWallet wallet;
     private DayNightCycleUI dayNightCycle;
 
-    private AnimalData selectedAnimal;
-    private readonly Dictionary<string, AnimalData> animals = new();
+    private AnimalDefinition selectedAnimal;
     private bool shopOpen = false;
 
+
+    // ---------------------------------------------------------
+    // INITIALIZATION
+    // ---------------------------------------------------------
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -49,12 +49,6 @@ public class ShopManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // Define animals once
-        animals["Chicken"] = new AnimalData("Chicken", 10, 3, 3);
-        animals["Cow"]     = new AnimalData("Cow",     20, 8, 2);
-        animals["Pig"]     = new AnimalData("Pig",     15, 5, 3);
-        animals["duck"]    = new AnimalData("duck",    50, 10, 10);
     }
 
     private void OnEnable()
@@ -73,12 +67,16 @@ public class ShopManager : MonoBehaviour
         CloseShop();
     }
 
+
+    // ---------------------------------------------------------
+    // SCENE SETUP
+    // ---------------------------------------------------------
     private void SetupUIForScene()
     {
         wallet = FindFirstObjectByType<PlayerWallet>();
         dayNightCycle = FindFirstObjectByType<DayNightCycleUI>();
 
-        // BATTLE SCENE → no shop
+        // No shop in battle scene
         if (SceneManager.GetActiveScene().name != "Game")
         {
             shopCanvas = null;
@@ -86,12 +84,11 @@ public class ShopManager : MonoBehaviour
             return;
         }
 
-        // GAME SCENE → instantiate prefab if needed
+        // Instantiate prefab only once
         if (shopCanvas == null)
         {
             shopCanvas = Instantiate(shopCanvasPrefab);
 
-            // Place UI in scene canvas if required
             Canvas sceneCanvas = FindFirstObjectByType<Canvas>();
             if (sceneCanvas != null)
                 shopCanvas.transform.SetParent(sceneCanvas.transform, false);
@@ -102,6 +99,7 @@ public class ShopManager : MonoBehaviour
 
         shopCanvas.SetActive(false);
 
+        // Update gold display
         if (wallet != null)
         {
             wallet.OnGoldChanged -= UpdateGold;
@@ -110,22 +108,27 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+
+    // ---------------------------------------------------------
+    // UI BINDING
+    // ---------------------------------------------------------
     private void BindUIReferences()
     {
         Transform root = shopCanvas.transform;
 
-        animalImage     = root.Find("ShopPanel/LeftPanel/AnimalImage")?.GetComponent<Image>();
-        statsText       = root.Find("ShopPanel/LeftPanel/StatsText")?.GetComponent<TMP_Text>();
-        buyButton       = root.Find("ShopPanel/LeftPanel/BuyButton")?.GetComponent<Button>();
+        animalImage   = root.Find("ShopPanel/LeftPanel/AnimalImage")?.GetComponent<Image>();
+        statsText     = root.Find("ShopPanel/LeftPanel/StatsText")?.GetComponent<TMP_Text>();
+        buyButton     = root.Find("ShopPanel/LeftPanel/BuyButton")?.GetComponent<Button>();
 
-        chickenButton   = root.Find("ShopPanel/RightPanel/AnimalButtonChicken")?.GetComponent<Button>();
-        cowButton       = root.Find("ShopPanel/RightPanel/AnimalButtonCow")?.GetComponent<Button>();
-        pigButton       = root.Find("ShopPanel/RightPanel/AnimalButtonPig")?.GetComponent<Button>();
-        duckButton      = root.Find("ShopPanel/RightPanel/AnimalButtonDuck")?.GetComponent<Button>();
+        chickenButton = root.Find("ShopPanel/RightPanel/AnimalButtonChicken")?.GetComponent<Button>();
+        cowButton     = root.Find("ShopPanel/RightPanel/AnimalButtonCow")?.GetComponent<Button>();
+        pigButton     = root.Find("ShopPanel/RightPanel/AnimalButtonPig")?.GetComponent<Button>();
+        duckButton    = root.Find("ShopPanel/RightPanel/AnimalButtonDuck")?.GetComponent<Button>();
 
-        goldText        = root.Find("ShopPanel/HeaderGold/GoldText")?.GetComponent<TMP_Text>();
-        exitShopButton  = root.Find("ShopPanel/ExitShopButton")?.GetComponent<Button>();
-        popupText       = root.Find("PopupText")?.GetComponent<TMP_Text>();
+        goldText      = root.Find("ShopPanel/HeaderGold/GoldText")?.GetComponent<TMP_Text>();
+        exitShopButton = root.Find("ShopPanel/ExitShopButton")?.GetComponent<Button>();
+
+        popupText     = root.Find("PopupText")?.GetComponent<TMP_Text>();
     }
 
     private void HookButtonEvents()
@@ -140,11 +143,16 @@ public class ShopManager : MonoBehaviour
         chickenButton.onClick.AddListener(() => SelectAnimal("Chicken"));
         cowButton.onClick.AddListener(() => SelectAnimal("Cow"));
         pigButton.onClick.AddListener(() => SelectAnimal("Pig"));
-        duckButton.onClick.AddListener(() => SelectAnimal("duck"));
+        duckButton.onClick.AddListener(() => SelectAnimal("Duck"));
+
         buyButton.onClick.AddListener(BuyAnimal);
         exitShopButton.onClick.AddListener(CloseShop);
     }
 
+
+    // ---------------------------------------------------------
+    // SHOP OPEN/CLOSE
+    // ---------------------------------------------------------
     public void ToggleShop()
     {
         if (shopOpen) CloseShop();
@@ -168,40 +176,61 @@ public class ShopManager : MonoBehaviour
         shopOpen = false;
     }
 
+
+    // ---------------------------------------------------------
+    // SELECTING ANIMALS
+    // ---------------------------------------------------------
     private void SelectAnimal(string name)
     {
-        selectedAnimal = animals[name];
-        statsText.text = $"HP: {selectedAnimal.hp}\nDamage: {selectedAnimal.damage}\nCost: {selectedAnimal.cost}";
+        selectedAnimal = animalsForSale.Find(a => a.animalName == name);
 
-        buyButton.interactable = !selectedAnimal.isOwned;
-
-        animalImage.sprite = name switch
+        if (selectedAnimal == null)
         {
-            "Chicken" => chickenSprite,
-            "Cow"     => cowSprite,
-            "Pig"     => pigSprite,
-            "duck"    => duckSprite,
-            _         => null
-        };
+            Debug.LogError($"Animal '{name}' not found in animalsForSale list!");
+            return;
+        }
 
+        // Update UI
+        statsText.text =
+            $"HP: {selectedAnimal.hp}\n" +
+            $"Damage: {selectedAnimal.damage}\n" +
+            $"Cost: {selectedAnimal.cost}";
+
+        animalImage.sprite = selectedAnimal.portraitSprite;
+
+        // Enable left panel
         SetLeftPanel(true);
+
+        // Disable buy button if already owned
+        buyButton.interactable = !PlayerAnimalInventory.Instance.OwnsAnimal(selectedAnimal);
     }
 
+
+    // ---------------------------------------------------------
+    // BUYING ANIMALS
+    // ---------------------------------------------------------
     private void BuyAnimal()
     {
+        if (selectedAnimal == null) return;
+
         if (wallet.gold < selectedAnimal.cost)
         {
             ShowPopup("Not enough gold!");
             return;
         }
 
-        selectedAnimal.isOwned = true;
         wallet.SpendGold(selectedAnimal.cost);
+        PlayerAnimalInventory.Instance.AddAnimal(selectedAnimal);
+
         buyButton.interactable = false;
 
-        ShowPopup($"{selectedAnimal.name} added!");
+        ShowPopup($"{selectedAnimal.animalName} purchased!");
     }
 
+
+    // ---------------------------------------------------------
+    // UI HELPERS
+    // ---------------------------------------------------------
     private void UpdateGold(int amount)
     {
         goldText.text = $"Gold: {amount}";
@@ -217,8 +246,8 @@ public class ShopManager : MonoBehaviour
 
     private IEnumerator FadePopup()
     {
-        yield return new WaitForSecondsRealtime(1);
-        for (float t = 0; t < 1; t += Time.deltaTime)
+        yield return new WaitForSecondsRealtime(1f);
+        for (float t = 0; t < 1f; t += Time.deltaTime)
         {
             popupText.alpha = 1 - t;
             yield return null;
@@ -230,20 +259,5 @@ public class ShopManager : MonoBehaviour
         animalImage.gameObject.SetActive(visible);
         statsText.gameObject.SetActive(visible);
         buyButton.gameObject.SetActive(visible);
-    }
-
-    [System.Serializable]
-    public class AnimalData
-    {
-        public string name;
-        public int cost;
-        public int hp;
-        public int damage;
-        public bool isOwned;
-
-        public AnimalData(string n, int c, int h, int d)
-        {
-            name = n; cost = c; hp = h; damage = d;
-        }
     }
 }

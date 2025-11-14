@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd18595c5e646461786329cfd4f50e92, type: 3}
   m_Name: Duck
   m_EditorClassIdentifier: Assembly-CSharp::AnimalDefinition
-  animalName: 
-  icon: {fileID: 0}
-  baseHP: 0
-  baseDamage: 0
-  cost: 0
+  animalName: Duck
+  hp: 10
+  damage: 10
+  cost: 50
+  portraitSprite: {fileID: 0}
