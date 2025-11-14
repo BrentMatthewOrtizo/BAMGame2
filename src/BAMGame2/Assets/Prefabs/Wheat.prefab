@@ -1,7 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &54355791025438544
-PrefabInstance:
+--- !u!1 &1081704548050042293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2645564494219637387}
+  - component: {fileID: 2064504616329990646}
+  - component: {fileID: 5789276871499782625}
+  - component: {fileID: 724541261534228395}
+  m_Layer: 3
+  m_Name: Wheat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2645564494219637387
+Transform:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:

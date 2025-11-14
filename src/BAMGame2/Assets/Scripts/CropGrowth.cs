@@ -18,7 +18,6 @@ public class CropGrowth : MonoBehaviour
     private int _stage = 0;
     private float _timer = 0f;
     private bool _isGrowing = false;
-    private bool _paused = false;
     private Vector3 _worldPos;
     private FarmArea _farmArea;
 
@@ -26,7 +25,8 @@ public class CropGrowth : MonoBehaviour
     {
         _sr = GetComponent<SpriteRenderer>();
     }
-    
+
+    // Called when first planted
     public void Initialize(FarmManager manager, FarmArea area, Vector3 position)
     {
         _sr = GetComponent<SpriteRenderer>();
@@ -34,51 +34,62 @@ public class CropGrowth : MonoBehaviour
         _farmArea = area;
         _stage = 0;
         _timer = 0f;
-        _isGrowing = true;
+        _isGrowing = false; // wait until watered
 
         manager.Register(this);
-        StartCoroutine(Grow(manager));
+
+        // 👇 ADD THIS LINE to make the first stage visible:
+        if (growthStages != null && growthStages.Length > 0)
+            _sr.sprite = growthStages[0];
+
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
     }
-    
+
+    // Called when loading from save
     public void LoadFromData(FarmManager manager, Vector3 position, int stage, float elapsed)
     {
         _sr = GetComponent<SpriteRenderer>();
         _worldPos = position;
         _stage = stage;
         _timer = elapsed;
-        _isGrowing = true;
+        _isGrowing = false; // wait until watered
 
         _sr.sprite = growthStages[Mathf.Min(stage, growthStages.Length - 1)];
         manager.Register(this);
-        StartCoroutine(Grow(manager));
     }
+
+    public void BeginGrowth()
+    {
+        if (!_isGrowing)
+        {
+            _isGrowing = true;
+            Debug.Log($"🌱 {name} started growing!");
+            StartCoroutine(Grow(FarmManager.Instance));
+        }
+    }
+    
+    public bool IsGrowing => _isGrowing;
 
     private IEnumerator Grow(FarmManager manager)
     {
         while (_isGrowing && _stage < growthStages.Length)
         {
-            if (SceneManager.GetActiveScene().name == "Battle" || _paused)
-            {
-                yield return null;
-                continue;
-            }
-
             _sr.sprite = growthStages[_stage];
             yield return new WaitForSeconds(timePerStage - _timer);
             _timer = 0f;
             _stage++;
         }
 
-        if (_stage >= growthStages.Length)
-        {
-            SpawnDrops();
+        // 🌾 Crop fully grown — spawn scattered drops
+        SpawnDrops();
 
-            if (_farmArea != null)
-                _farmArea.Unregister(_worldPos);
+        // 🧹 Let the farm area know this spot is free again
+        if (_farmArea != null)
+            _farmArea.Unregister(_worldPos);
 
-            manager.Unregister(this);
-            Destroy(gameObject);
-        }
+        manager.Unregister(this);
+        Destroy(gameObject);
     }
 
     private void SpawnDrops()
@@ -120,14 +131,8 @@ public class CropGrowth : MonoBehaviour
         if (_sr == null) return;
 
         if (scene.name == "Battle")
-        {
-            _paused = true;
-            _sr.enabled = false;  // hide
-        }
+            _sr.enabled = false; // hide at night
         else if (scene.name == "Game")
-        {
-            _paused = false;
-            _sr.enabled = true;   // show again
-        }
+            _sr.enabled = true;
     }
 }

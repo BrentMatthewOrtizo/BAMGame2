@@ -13,6 +13,10 @@ public class FarmManager : MonoBehaviour
     public GameObject cropPrefab;
     public Transform cropParent;
 
+    [Header("Watering Settings")]
+    public float wateringRadius = 2.5f; // How far the watering reaches
+    public LayerMask cropLayer; // assign "Crop" layer in Inspector
+
     private readonly List<CropGrowth> _activeCrops = new();
 
     private void Awake()
@@ -38,7 +42,7 @@ public class FarmManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //Only load crops when returning to Game scene
+        // Only load crops when returning to Game scene
         if (scene.name == "Game")
         {
             LoadCrops();
@@ -100,5 +104,41 @@ public class FarmManager : MonoBehaviour
         }
 
         Log.Info($"Loaded {GameStateManager.Instance.crops.Count} crops");
+    }
+
+    // 🪣 Watering System
+    public void WaterNearbyCrops(Vector3 playerPosition, float radius = 1.5f)
+    {
+        bool anyWatered = false;
+        foreach (var crop in _activeCrops)
+        {
+            if (crop == null) continue;
+
+            float distance = Vector3.Distance(crop.transform.position, playerPosition);
+            Crop cropComp = crop.GetComponent<Crop>();
+
+            if (distance <= radius && cropComp != null && !cropComp.IsWatered)
+            {
+                cropComp.WaterCrop();
+                anyWatered = true;
+            }
+        }
+
+        if (!anyWatered)
+            Debug.Log("💧 No dry crops nearby!");
+    }
+
+    // Draw watering radius in Scene view for debugging
+    private void OnDrawGizmosSelected()
+    {
+        if (Application.isPlaying)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireSphere(player.transform.position, wateringRadius);
+            }
+        }
     }
 }

@@ -8,6 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 6818040277531335508}
+  - component: {fileID: 112096625757440844}
+  - component: {fileID: 5326144636040409663}
+  - component: {fileID: 1341296836012431923}
+  m_Layer: 3
+  m_Name: Seed
   - component: {fileID: 2653998521015173375}
   - component: {fileID: 7242923817361584066}
   - component: {fileID: 6266196660028698864}
