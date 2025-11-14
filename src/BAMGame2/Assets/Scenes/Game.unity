@@ -3943,7 +3943,7 @@ MonoBehaviour:
   wateringRadius: 0.8
   cropLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!114 &1501236853
 MonoBehaviour:
   m_ObjectHideFlags: 0

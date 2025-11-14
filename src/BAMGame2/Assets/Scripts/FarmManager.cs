@@ -92,6 +92,13 @@ public class FarmManager : MonoBehaviour
         if (GameStateManager.Instance == null || cropPrefab == null)
             return;
 
+        // ❗ Do NOT load if we still have active crops from DontDestroyOnLoad
+        if (_activeCrops.Count > 0)
+        {
+            Debug.Log("Skipping crop load — crops already exist (preventing duplicates)");
+            return;
+        }
+
         foreach (var data in GameStateManager.Instance.crops)
         {
             var go = Instantiate(cropPrefab, data.worldPos, Quaternion.identity, cropParent);
