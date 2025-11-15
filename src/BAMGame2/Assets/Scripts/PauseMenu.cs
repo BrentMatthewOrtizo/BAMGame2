@@ -1,3 +1,5 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -5,7 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
+    
     public GameObject pauseMenuPanel;
+    public static bool IsGamePaused { get; private set; } = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,20 +23,29 @@ public class PauseMenu : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             pauseMenuPanel.SetActive(!pauseMenuPanel.activeSelf);
+            SetPause(pauseMenuPanel.activeSelf);
+            Log.Info($"IsGamePaused set to {pauseMenuPanel.activeSelf}");
             AudioManager.Instance.PlayMousePressSFX();
         }
+    }
+
+    public static void SetPause(bool pause)
+    {
+        IsGamePaused = pause;
     }
 
     public void Interact()
     {
         pauseMenuPanel.SetActive(!pauseMenuPanel.activeSelf);
-        // AudioManager.Instance.PlayMousePressSFX();
+        SetPause(pauseMenuPanel.activeSelf);
+        Log.Info($"IsGamePaused set to {pauseMenuPanel.activeSelf}");
     }
 
     public void Exit()
     {
         SceneManager.LoadSceneAsync(0);
         pauseMenuPanel.SetActive(false);
-        // AudioManager.Instance.PlayMousePressSFX();
+        SetPause(false);
+        Log.Info("IsGamePaused set to false");
     }
 }

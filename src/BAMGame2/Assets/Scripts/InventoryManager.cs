@@ -73,6 +73,7 @@ public class InventoryManager : MonoBehaviour
             }
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
             inventoryTab.SetActive(!inventoryTab.activeSelf);
+            PauseMenu.SetPause(inventoryPanel.activeSelf);
             AudioManager.Instance.PlayMousePressSFX();
         }
     }

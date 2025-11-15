@@ -66,7 +66,6 @@ public class Collectible : MonoBehaviour
                         }
                     }
                     
-                    // InventoryManager.Instance.AddItem("Seed"); //add item to list
                 } 
                 else
                 {
