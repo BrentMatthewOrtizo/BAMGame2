@@ -478,11 +478,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88644832b116224889a19b8e5531711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycleUI
-  dayDuration: 10
-  nightDuration: 10
+  dayDuration: 20
   phaseLabel: {fileID: 2027571049}
   timerLabel: {fileID: 1239691510}
-  timeLeft: 0
 --- !u!1 &394412230
 GameObject:
   m_ObjectHideFlags: 0

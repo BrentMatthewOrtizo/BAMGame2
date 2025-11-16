@@ -4,6 +4,7 @@ public class Crop : MonoBehaviour
 {
     [Header("Watering State")]
     public bool isWatered = false;
+
     private CropGrowth cropGrowth;
 
     private void Awake()
@@ -24,7 +25,10 @@ public class Crop : MonoBehaviour
         Debug.Log($"💧 Watered {name}, growth starting...");
 
         if (cropGrowth != null)
-            cropGrowth.BeginGrowth();
+        {
+            // MVVM: this will update the CropModel via ICropService
+            cropGrowth.OnWateredFromService();
+        }
     }
 
     // Property used by FarmManager
