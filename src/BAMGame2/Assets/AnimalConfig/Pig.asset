@@ -16,4 +16,4 @@ MonoBehaviour:
   hp: 5
   damage: 3
   cost: 15
-  portraitSprite: {fileID: 0}
+  portraitSprite: {fileID: 853589032397801146, guid: d80ab3e720a1f440db306b40c5b8333e, type: 3}
