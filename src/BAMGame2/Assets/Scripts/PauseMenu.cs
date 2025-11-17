@@ -20,13 +20,22 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (InventoryManager.Instance == null)
+        {
+            return;
+        }
+
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             pauseMenuPanel.SetActive(!pauseMenuPanel.activeSelf);
+            InventoryManager.Instance.hotbarPanel.SetActive(!InventoryManager.Instance.hotbarPanel.activeSelf);
+            InventoryManager.Instance.inventoryPanel.SetActive(false);
+            InventoryManager.Instance.inventoryTab.SetActive(false);
             SetPause(pauseMenuPanel.activeSelf);
             Log.Info($"IsGamePaused set to {pauseMenuPanel.activeSelf}");
             AudioManager.Instance.PlayMousePressSFX();
         }
+        
     }
 
     public static void SetPause(bool pause)
@@ -36,7 +45,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Interact()
     {
+        if (InventoryManager.Instance == null)
+        {
+            return;
+        }
         pauseMenuPanel.SetActive(!pauseMenuPanel.activeSelf);
+        InventoryManager.Instance.hotbarPanel.SetActive(!InventoryManager.Instance.hotbarPanel.activeSelf);
+        InventoryManager.Instance.inventoryPanel.SetActive(false);
+        InventoryManager.Instance.inventoryTab.SetActive(false);
         SetPause(pauseMenuPanel.activeSelf);
         Log.Info($"IsGamePaused set to {pauseMenuPanel.activeSelf}");
     }

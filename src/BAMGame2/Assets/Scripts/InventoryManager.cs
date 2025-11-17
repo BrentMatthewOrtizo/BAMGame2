@@ -13,9 +13,10 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject inventoryTab;
     public GameObject inventoryPanel;
+    public GameObject hotbarPanel;
     public GameObject slotPrefab;
     public int slotCount;
-    public List<InventorySaveData> inventorySaveData;
+    //public List<InventorySaveData> inventorySaveData;
 
     [Header("Inventory Items")]
     public GameObject[] itemPrefabs; //for testing
@@ -84,29 +85,16 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryPanel.SetActive(false);
             inventoryTab.SetActive(false);
-
-            if (inventorySaveData != null && inventorySaveData.Count > 0)
-            {
-                SetInventoryItems(inventorySaveData);
-            }
-            else
-            {
-                Log.Warn("No inventory data found to be loaded.");
-            }
+            hotbarPanel.SetActive(true);
         }
+        PauseMenu.SetPause(false);
     }
     
     private void OnSceneUnloaded(Scene scene)
     {
         inventoryPanel.SetActive(false);
-        inventoryTab.SetActive(false);
-        
-        // Only save if we’re unloading the scene that actually has the UI
-        if (scene.name == "Game" && inventoryPanel != null)
-        {
-            inventorySaveData = GetInventoryItems();
-            Log.Info($"Saved {inventorySaveData.Count} inventory entries.");
-        }
+        inventoryTab.SetActive(false);//need?
+        hotbarPanel.SetActive(false);
     }
 
     public bool AddItem(GameObject itemPrefab)
@@ -149,7 +137,7 @@ public class InventoryManager : MonoBehaviour
     }
     
     // for saving
-    public List<InventorySaveData> GetInventoryItems()
+    /*public List<InventorySaveData> GetInventoryItems()
     {
         List<InventorySaveData> invData = new List<InventorySaveData>();
         foreach (Transform slotTransform in inventoryPanel.transform)
@@ -216,5 +204,5 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }

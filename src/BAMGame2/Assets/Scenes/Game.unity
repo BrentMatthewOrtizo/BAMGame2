@@ -1862,7 +1862,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00044900217, y: -1.03007, z: -10}
+  m_LocalPosition: {x: -0.00024686733, y: -1.03007, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6113,9 +6113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   inventoryTab: {fileID: 932629058}
   inventoryPanel: {fileID: 1014650331}
+  hotbarPanel: {fileID: 1139752463}
   slotPrefab: {fileID: 2126816005781120758, guid: 555aa0071d2c44b5b9071c7ea1a639e6, type: 3}
   slotCount: 25
-  inventorySaveData: []
   itemPrefabs:
   - {fileID: 6088230313494435280, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
 --- !u!4 &1463781139

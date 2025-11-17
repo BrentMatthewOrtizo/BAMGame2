@@ -14,7 +14,7 @@ public class HotbarController : MonoBehaviour
     public int slotCount = 5;
     
     private ItemDictionary itemDictionary;
-    public List<InventorySaveData> inventorySaveData;
+    //public List<InventorySaveData> inventorySaveData;
 
     private Key[] hotbarKeys; //1-5 on keyboard
 
@@ -61,14 +61,14 @@ public class HotbarController : MonoBehaviour
         {
             hotbarPanel.SetActive(true);
 
-            if (inventorySaveData != null && inventorySaveData.Count > 0)
-            {
-                SetHotbarItems(inventorySaveData);
-            }
-            else
-            {
-                Log.Warn("No hotbar data found to be loaded.");
-            }
+            // if (inventorySaveData != null && inventorySaveData.Count > 0)
+            // {
+            //     SetHotbarItems(inventorySaveData);
+            // }
+            // else
+            // {
+            //     Log.Warn("No hotbar data found to be loaded.");
+            // }
         }
     }
 
@@ -77,11 +77,11 @@ public class HotbarController : MonoBehaviour
         hotbarPanel.SetActive(false);
         
         // Only save if we’re unloading the scene that actually has the UI
-        if (scene.name == "Game" && hotbarPanel != null)
-        {
-            inventorySaveData = GetHotbarItems();
-            Log.Info($"Saved {inventorySaveData.Count} hotbar slots.");
-        }
+        // if (scene.name == "Game" && hotbarPanel != null)
+        // {
+        //     inventorySaveData = GetHotbarItems();
+        //     Log.Info($"Saved {inventorySaveData.Count} hotbar slots.");
+        // }
     }
     
     private void OnDestroy()
@@ -101,7 +101,7 @@ public class HotbarController : MonoBehaviour
         }
     }
     
-    public List<InventorySaveData> GetHotbarItems()
+    /*public List<InventorySaveData> GetHotbarItems()
     {
         List<InventorySaveData> hotbarData = new List<InventorySaveData>();
         foreach (Transform slotTransform in hotbarPanel.transform)
@@ -168,5 +168,5 @@ public class HotbarController : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
