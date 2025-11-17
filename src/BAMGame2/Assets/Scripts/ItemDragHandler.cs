@@ -82,6 +82,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 //move item into drop slot
                 transform.SetParent(dropSlot.transform);
                 dropSlot.currentItem = gameObject; 
+                GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
         }
         else
