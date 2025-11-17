@@ -906,7 +906,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00046530445, y: -1.03007, z: -10}
+  m_LocalPosition: {x: -0.00037385043, y: -1.03007, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1378,6 +1378,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831371970}
   m_CullTransparentMesh: 1
+--- !u!1 &844157700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 844157702}
+  - component: {fileID: 844157701}
+  m_Layer: 0
+  m_Name: PlayerAnimalInventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &844157701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844157700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d337e19308ace443282bfe1f96932fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimalInventory
+  ownedAnimals: []
+--- !u!4 &844157702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844157700}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.21982, y: -1.35897, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &861327767
 GameObject:
   m_ObjectHideFlags: 0
@@ -4322,47 +4367,47 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 9e8f5347-7380-4a82-b44d-9143a788bd7d
-    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 220f6836-310c-4dca-913c-2b63f08ee7e2
-    m_ActionName: 'Player/Look[/Mouse/delta]'
+    m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f49e2e0a-352e-41da-b0ec-0d2c5fabe5c9
-    m_ActionName: 'Player/Fire[/Mouse/leftButton]'
+    m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 12ddf9aa-1184-4fee-ae55-0697340ab601
-    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ccb28fc6-ad48-4809-8c04-4f7faab005d7
-    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+    m_ActionName: UI/Submit[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ac58e679-5fb7-4dce-91b7-c927bf8d2bbb
-    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+    m_ActionName: UI/Cancel[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5ad2277e-b8f9-4fe3-abf5-a41fadbafba4
-    m_ActionName: 'UI/Point[/Mouse/position]'
+    m_ActionName: UI/Point[/Mouse/position]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5d8ec5e8-301f-4538-bc7f-1e54976d7277
-    m_ActionName: 'UI/Click[/Mouse/leftButton]'
+    m_ActionName: UI/Click[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f74f17ba-b685-4f26-934b-0d0eda624d91
-    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: d1c4d863-ef59-459b-be93-9476e33d0fa6
-    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0673efe4-d035-4eaa-ba32-c1a27a2206f6
-    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c9877650-21e8-41ca-8333-44de52f491ce
@@ -4386,7 +4431,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 58b94c7e-ffb0-4425-b70e-59199cb76056
-    m_ActionName: 'Player/Interact[/Keyboard/e]'
+    m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1453641720}
@@ -4402,7 +4447,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: d8da5715-81b9-4714-aea2-7dfe92b1fc1e
-    m_ActionName: 'Player/Water[/Keyboard/e]'
+    m_ActionName: Player/Water[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -9510,11 +9555,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b6549cf98244f69ab3d50ee37c62c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopManager
-  shopCanvasPrefab: {fileID: 8319612652813151246, guid: bca519760bbe8443e81c04c203bdd826, type: 3}
-  chickenSprite: {fileID: 2161211097934087789, guid: e08884e4b4edc4563854a81b83fb1d2d, type: 3}
-  cowSprite: {fileID: -7413471138981615691, guid: ead51a4e8927f4881ab50f67a4a88159, type: 3}
-  pigSprite: {fileID: 1545615722503676599, guid: 210700be9c4d54daa996d4a1c6efdbfb, type: 3}
-  duckSprite: {fileID: 5312323068141305100, guid: 54c9f4c668f234125ac14f742f2eba43, type: 3}
+  shopCanvasPrefab: {fileID: 7798478836981004375, guid: d135c3b56c8ef4eb48e4b7b6081a1620, type: 3}
+  animalsForSale:
+  - {fileID: 11400000, guid: a167f464b407c452bae8e5f184c16b7c, type: 2}
+  - {fileID: 11400000, guid: 1ddfc66386c7347b2805011d6cd115c9, type: 2}
+  - {fileID: 11400000, guid: 7cbe936df167841cba61fee7034240c8, type: 2}
+  - {fileID: 11400000, guid: 3fce263cdff154260a7c59bcea9ddff1, type: 2}
 --- !u!4 &2028918101
 Transform:
   m_ObjectHideFlags: 0
@@ -9579,6 +9625,7 @@ SceneRoots:
   - {fileID: 2080908338}
   - {fileID: 1464053685}
   - {fileID: 648744293}
+  - {fileID: 844157702}
   - {fileID: 2028918101}
   - {fileID: 1192621263}
   - {fileID: 195795384}
