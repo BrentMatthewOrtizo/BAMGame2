@@ -221,8 +221,10 @@ public class ShopManager : MonoBehaviour
 
         wallet.SpendGold(selectedAnimal.cost);
         PlayerAnimalInventory.Instance.AddAnimal(selectedAnimal);
-
         buyButton.interactable = false;
+
+        // 🟢 Spawn world animal ONE TIME
+        AnimalSpawner.Instance.TrySpawnAnimal(selectedAnimal);
 
         ShowPopup($"{selectedAnimal.animalName} purchased!");
     }

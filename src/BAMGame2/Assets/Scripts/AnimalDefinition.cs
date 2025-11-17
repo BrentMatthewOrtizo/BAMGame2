@@ -1,8 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(
-    fileName = "NewAnimal",
-    menuName = "BAM/Animal Definition")]
+[CreateAssetMenu(fileName = "NewAnimal", menuName = "BAM/Animal Definition")]
 public class AnimalDefinition : ScriptableObject
 {
     [Header("Identity")]
@@ -15,4 +13,7 @@ public class AnimalDefinition : ScriptableObject
     [Header("Shop")]
     public int cost;
     public Sprite portraitSprite;
+
+    [Header("World Prefab")]
+    public GameObject worldPrefab;   // <— ADD THIS
 }

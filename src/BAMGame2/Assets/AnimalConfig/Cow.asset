@@ -17,3 +17,4 @@ MonoBehaviour:
   damage: 2
   cost: 20
   portraitSprite: {fileID: -8754534571467968320, guid: ead51a4e8927f4881ab50f67a4a88159, type: 3}
+  worldPrefab: {fileID: 5219487812468819025, guid: f0fb140e16bec4f44a9db81c1e9926f7, type: 3}
