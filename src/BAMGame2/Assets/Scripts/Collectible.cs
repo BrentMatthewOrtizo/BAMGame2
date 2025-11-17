@@ -10,7 +10,7 @@ public enum CollectibleType
 [RequireComponent(typeof(Collider2D))]
 public class Collectible : MonoBehaviour
 {
-    [Header("Collectible Settings")]
+    [Header("Collectibles Settings")]
     public CollectibleType type = CollectibleType.Gold;
     public int amount = 1;
 
