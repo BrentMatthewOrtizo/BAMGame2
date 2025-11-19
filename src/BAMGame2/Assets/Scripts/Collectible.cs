@@ -1,4 +1,6 @@
 using UnityEngine;
+using Game399.Shared.Diagnostics;
+using Game.Runtime;
 
 public enum CollectibleType
 {
@@ -14,6 +16,7 @@ public class Collectible : MonoBehaviour
     public CollectibleType type = CollectibleType.Gold;
     public int amount = 1;
 
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
     private void Reset()
     {
         Collider2D col = GetComponent<Collider2D>();
@@ -41,25 +44,44 @@ public class Collectible : MonoBehaviour
                 if (PlayerWallet.Instance != null)
                 {
                     PlayerWallet.Instance.AddGold(amount);
-                    Debug.Log($"[Collectible] Collected {amount} gold. " +
+                    Log.Info($"[Collectible] Player collected {amount} gold. " +
                               $"Total gold: {PlayerWallet.Instance.gold}");
+                    Destroy(gameObject); //maybe move later
                 }
                 else
                 {
-                    Debug.LogWarning("[Collectible] PlayerWallet.Instance is null – cannot track gold.");
+                    Log.Warn("[Collectible] PlayerWallet.Instance is null – cannot track gold.");
                 }
                 break;
 
-            case CollectibleType.Seed:
-                Debug.Log("[Collectible] Seed collected (inventory feature pending).");
-                break;
-
             case CollectibleType.Crop:
-                Debug.Log("[Collectible] Crop collected (inventory feature pending)..");
+            case CollectibleType.Seed:
+                if (InventoryManager.Instance != null)
+                {
+                    Log.Info("[Collectible] Player collected an item.");
+                    
+                    Item item = gameObject.GetComponent<Item>(); //maybe?
+                    if (item != null)
+                    {
+                        //add item to list
+                        bool itemAdded = InventoryManager.Instance.AddItem(gameObject); //maybe?
+
+                        if (itemAdded)
+                        {
+                            //add to itemPrefabs array in inventorymanager?
+                            gameObject.GetComponent<Item>().PickUp();
+                            Destroy(gameObject); 
+                            AudioManager.Instance.PlayItemPickupSFX();
+                        }
+                    }
+                    
+                } 
+                else
+                {
+                    Log.Warn("[Collectible] InventoryManager.Instance is null – cannot track Seeds.");
+                }
                 break;
         }
-
-        Destroy(gameObject);
     }
     
     public void CollectByAnimal()
