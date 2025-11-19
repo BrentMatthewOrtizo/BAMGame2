@@ -12,11 +12,15 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    // 🧭 This keeps track of the last direction moved (for watering/idle animations)
+    public Vector2 LastMoveDir { get; private set; }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         if (GameStateManager.Instance && GameStateManager.Instance.playerPosition != Vector3.zero)
             transform.position = GameStateManager.Instance.playerPosition;
     }
@@ -32,8 +36,11 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("InputY", moveInput.y);
             animator.SetFloat("LastInputX", moveInput.x);
             animator.SetFloat("LastInputY", moveInput.y);
+
+            // 🧭 Store the last direction we moved in
+            LastMoveDir = moveInput.normalized;
         }
-        
+
         if (moveInput.x > 0.1f)
             spriteRenderer.flipX = false;
         else if (moveInput.x < -0.1f)
@@ -55,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
     }
-    
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -63,5 +70,4 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 0.9f);
     }
 #endif
-
 }

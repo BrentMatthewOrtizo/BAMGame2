@@ -1,5 +1,4 @@
 using System;
-using Game399.Shared;
 using Game399.Shared.DependencyInjection;
 using Game399.Shared.DependencyInjection.Implementation;
 using Game399.Shared.Diagnostics;
@@ -13,13 +12,15 @@ namespace Game.Runtime
     {
         public static T Resolve<T>() => Container.Value.Resolve<T>();
 
-        private static readonly Lazy<IMiniContainer> Container = new (() =>
+        private static readonly Lazy<IMiniContainer> Container = new(() =>
         {
             var container = new MiniContainer();
 
+            // Logging
             var logger = new UnityGameLogger();
             container.RegisterSingletonInstance<IGameLog>(logger);
 
+            // Demo combat state from earlier sample (safe to keep)
             var gameState = new GameState();
             gameState.GoodGuy.Name = "Good Sandy";
             gameState.GoodGuy.Health.Value = 10;
@@ -31,7 +32,15 @@ namespace Game.Runtime
 
             var damageService = new DamageService(logger);
             container.RegisterSingletonInstance<IDamageService>(damageService);
-            
+
+            // 🌎 World / day–night state
+            var worldStateService = new WorldStateService(logger);
+            container.RegisterSingletonInstance<IWorldStateService>(worldStateService);
+
+            // 🌱 Crop / growth logic
+            var cropService = new CropService(logger);
+            container.RegisterSingletonInstance<ICropService>(cropService);
+
             return container;
         });
     }

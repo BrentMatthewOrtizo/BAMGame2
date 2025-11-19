@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1010808604371475319}
   - component: {fileID: 6835514669261676730}
   - component: {fileID: 1191517610359872625}
-  m_Layer: 0
+  - component: {fileID: -3457325255739187863}
+  m_Layer: 3
   m_Name: Crop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,5 +111,18 @@ MonoBehaviour:
   - {fileID: 8954413170907878631, guid: 03c370868e98e47389b4054fd78d97df, type: 3}
   timePerStage: 1
   goldPrefab: {fileID: 8881262897486949895, guid: dc7a03034cfd1d54ca584af181fbff24, type: 3}
-  cropPrefab: {fileID: 6105932745888213632, guid: 575ce5bbd4f964db6b20a03be6c225a8, type: 3}
-  seedPrefab: {fileID: 6088230313494435280, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
+  cropPrefab: {fileID: 1081704548050042293, guid: 4bbd9b55710fb9548ae8a5f7573cea6f, type: 3}
+  seedPrefab: {fileID: 6706803943369818003, guid: 94ce2309fe23a2d41bb54fd8ef8fe559, type: 3}
+--- !u!114 &-3457325255739187863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7406706770422914990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c1a4b0b83221f4d9c1dea1e1359cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Crop
+  isWatered: 0

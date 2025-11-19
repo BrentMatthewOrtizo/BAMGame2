@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd18595c5e646461786329cfd4f50e92, type: 3}
+  m_Name: Duck
+  m_EditorClassIdentifier: Assembly-CSharp::AnimalDefinition
+  animalName: Duck
+  hp: 10
+  damage: 10
+  cost: 50
+  portraitSprite: {fileID: 5312323068141305100, guid: 54c9f4c668f234125ac14f742f2eba43, type: 3}
+  worldPrefab: {fileID: 8818916452064991207, guid: d0d8baf36d0eccf43bb3da4f556a6c3e, type: 3}
