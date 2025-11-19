@@ -126,3 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crop
   isWatered: 0
+  cropPrefab: {fileID: 6105932745888213632, guid: 575ce5bbd4f964db6b20a03be6c225a8, type: 3}
+  seedPrefab: {fileID: 6088230313494435280, guid: 7ae0307ea1a2b4cfb907c9bc334bd8a3, type: 3}
