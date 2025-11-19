@@ -55,7 +55,7 @@ public class Collectible : MonoBehaviour
                 break;
 
             case CollectibleType.Crop:
-                Debug.Log("[Collectible] Crop collected (inventory feature pending).");
+                Debug.Log("[Collectible] Crop collected (inventory feature pending)..");
                 break;
         }
 
