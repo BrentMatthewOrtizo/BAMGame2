@@ -1,8 +1,6 @@
 namespace Game399.Shared.Models
 {
-    /// <summary>
-    /// Domain model for day/night & timer.
-    /// </summary>
+    // Domain model for day/night & timer.
     public class WorldStateModel
     {
         public ObservableValue<bool> IsDay { get; } = new(true);

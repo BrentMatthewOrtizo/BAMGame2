@@ -2,9 +2,7 @@ using Game399.Shared.Models;
 
 namespace Game399.Shared.Services
 {
-    /// <summary>
-    /// Domain logic for ticking the world timer.
-    /// </summary>
+    // Domain logic for ticking the world timer.
     public interface IWorldStateService
     {
         WorldStateModel World { get; }
