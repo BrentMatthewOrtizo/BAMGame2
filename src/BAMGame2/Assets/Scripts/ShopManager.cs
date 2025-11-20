@@ -1,41 +1,44 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager Instance { get; private set; }
 
-    [Header("UI References")]
-    public GameObject shopCanvas;
-    public Image animalImage;
-    public TMP_Text statsText;
-    public TMP_Text goldText;
-    public Button buyButton;
-    public TMP_Text popupText;
-    public Button exitShopButton;
+    [Header("Prefab")]
+    public GameObject shopCanvasPrefab;
 
-    [Header("Animal Buttons")]
-    public Button chickenButton;
-    public Button cowButton;
-    public Button pigButton;
-    public Button duckButton;
-    
-    [Header("Animal Sprites")]
-    public Sprite chickenSprite;
-    public Sprite cowSprite;
-    public Sprite pigSprite;
-    public Sprite duckSprite;
+    [Header("Animals Sold Here")]
+    public List<AnimalDefinition> animalsForSale;
+
+    // Runtime UI references
+    private GameObject shopCanvas;
+    private Image animalImage;
+    private TMP_Text statsText;
+    private TMP_Text goldText;
+    private Button buyButton;
+    private TMP_Text popupText;
+    private Button exitShopButton;
+
+    private Button chickenButton;
+    private Button cowButton;
+    private Button pigButton;
+    private Button duckButton;
 
     private PlayerWallet wallet;
-    private AnimalData selectedAnimal;
-    private Dictionary<string, AnimalData> animals = new();
-
-    private bool shopOpen = false;
     private DayNightCycleUI dayNightCycle;
 
+    private AnimalDefinition selectedAnimal;
+    private bool shopOpen = false;
+
+
+    // ---------------------------------------------------------
+    // INITIALIZATION
+    // ---------------------------------------------------------
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,117 +46,172 @@ public class ShopManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        wallet = FindObjectOfType<PlayerWallet>();
-        dayNightCycle = FindObjectOfType<DayNightCycleUI>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-        if (wallet == null)
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetupUIForScene();
+        CloseShop();
+    }
+
+
+    // ---------------------------------------------------------
+    // SCENE SETUP
+    // ---------------------------------------------------------
+    private void SetupUIForScene()
+    {
+        wallet = FindFirstObjectByType<PlayerWallet>();
+        dayNightCycle = FindFirstObjectByType<DayNightCycleUI>();
+
+        // No shop in battle scene
+        if (SceneManager.GetActiveScene().name != "Game")
         {
-            Debug.LogError("[ShopManager] No PlayerWallet found in scene.");
+            shopCanvas = null;
+            shopOpen = false;
             return;
         }
 
-        // Define animals
-        animals["Chicken"] = new AnimalData("Chicken", 10, 3, 3);
-        animals["Cow"] = new AnimalData("Cow", 20, 8, 2);
-        animals["Pig"] = new AnimalData("Pig", 15, 5, 3);
-        animals["duck"] = new AnimalData("duck", 50, 10, 10);
+        // Instantiate prefab only once
+        if (shopCanvas == null)
+        {
+            shopCanvas = Instantiate(shopCanvasPrefab);
 
-        // Hook buttons
-        chickenButton.onClick.AddListener(() => SelectAnimal("Chicken"));
-        cowButton.onClick.AddListener(() => SelectAnimal("Cow"));
-        pigButton.onClick.AddListener(() => SelectAnimal("Pig"));
-        duckButton.onClick.AddListener(() => SelectAnimal("duck"));
-        buyButton.onClick.AddListener(BuyAnimal);
-        exitShopButton.onClick.AddListener(CloseShop);
-        exitShopButton.gameObject.SetActive(false);
+            Canvas sceneCanvas = FindFirstObjectByType<Canvas>();
+            if (sceneCanvas != null)
+                shopCanvas.transform.SetParent(sceneCanvas.transform, false);
+        }
 
-        wallet.OnGoldChanged += UpdateGoldDisplay;
-        UpdateGoldDisplay(wallet.gold);
+        BindUIReferences();
+        HookButtonEvents();
 
         shopCanvas.SetActive(false);
-    }
 
-    private void Update()
-    {
-        // Close the shop automatically when the day timer ends
-        if (shopOpen && dayNightCycle != null && dayNightCycle.IsDay && dayNightCycle.timeLeft <= 0f)
+        // Update gold display
+        if (wallet != null)
         {
-            Debug.Log("[ShopManager] Timer reached 0 — closing shop.");
-            CloseShop();
+            wallet.OnGoldChanged -= UpdateGold;
+            wallet.OnGoldChanged += UpdateGold;
+            UpdateGold(wallet.gold);
         }
     }
 
+
+    // ---------------------------------------------------------
+    // UI BINDING
+    // ---------------------------------------------------------
+    private void BindUIReferences()
+    {
+        Transform root = shopCanvas.transform;
+
+        animalImage   = root.Find("ShopPanel/LeftPanel/AnimalImage")?.GetComponent<Image>();
+        statsText     = root.Find("ShopPanel/LeftPanel/StatsText")?.GetComponent<TMP_Text>();
+        buyButton     = root.Find("ShopPanel/LeftPanel/BuyButton")?.GetComponent<Button>();
+
+        chickenButton = root.Find("ShopPanel/RightPanel/AnimalButtonChicken")?.GetComponent<Button>();
+        cowButton     = root.Find("ShopPanel/RightPanel/AnimalButtonCow")?.GetComponent<Button>();
+        pigButton     = root.Find("ShopPanel/RightPanel/AnimalButtonPig")?.GetComponent<Button>();
+        duckButton    = root.Find("ShopPanel/RightPanel/AnimalButtonDuck")?.GetComponent<Button>();
+
+        goldText      = root.Find("ShopPanel/HeaderGold/GoldText")?.GetComponent<TMP_Text>();
+        exitShopButton = root.Find("ShopPanel/ExitShopButton")?.GetComponent<Button>();
+
+        popupText     = root.Find("PopupText")?.GetComponent<TMP_Text>();
+    }
+
+    private void HookButtonEvents()
+    {
+        chickenButton.onClick.RemoveAllListeners();
+        cowButton.onClick.RemoveAllListeners();
+        pigButton.onClick.RemoveAllListeners();
+        duckButton.onClick.RemoveAllListeners();
+        buyButton.onClick.RemoveAllListeners();
+        exitShopButton.onClick.RemoveAllListeners();
+
+        chickenButton.onClick.AddListener(() => SelectAnimal("Chicken"));
+        cowButton.onClick.AddListener(() => SelectAnimal("Cow"));
+        pigButton.onClick.AddListener(() => SelectAnimal("Pig"));
+        duckButton.onClick.AddListener(() => SelectAnimal("Duck"));
+
+        buyButton.onClick.AddListener(BuyAnimal);
+        exitShopButton.onClick.AddListener(CloseShop);
+    }
+
+
+    // ---------------------------------------------------------
+    // SHOP OPEN/CLOSE
+    // ---------------------------------------------------------
     public void ToggleShop()
     {
-        if (shopOpen)
-            CloseShop();
-        else
-            OpenShop();
+        if (shopOpen) CloseShop();
+        else OpenShop();
     }
 
     public void OpenShop()
     {
+        if (shopCanvas == null) return;
+
         shopCanvas.SetActive(true);
-        UpdateGoldDisplay(wallet.gold);
         shopOpen = true;
-        
-        SetLeftPanelVisible(false);
-        exitShopButton.gameObject.SetActive(true);
+        SetLeftPanel(false);
     }
 
     public void CloseShop()
     {
-        shopCanvas.SetActive(false);
+        if (shopCanvas != null)
+            shopCanvas.SetActive(false);
+
         shopOpen = false;
-        exitShopButton.gameObject.SetActive(false);
     }
 
+
+    // ---------------------------------------------------------
+    // SELECTING ANIMALS
+    // ---------------------------------------------------------
     private void SelectAnimal(string name)
     {
-        selectedAnimal = animals[name];
-        statsText.text = $"HP: {selectedAnimal.hp}\nDamage: {selectedAnimal.damage}\nCost: {selectedAnimal.cost} gold";
-        buyButton.interactable = !selectedAnimal.isOwned;
+        selectedAnimal = animalsForSale.Find(a => a.animalName == name);
 
-        // Update animal image based on selection
-        switch (name)
+        if (selectedAnimal == null)
         {
-            case "Chicken":
-                animalImage.sprite = chickenSprite;
-                break;
-            case "Cow":
-                animalImage.sprite = cowSprite;
-                break;
-            case "Pig":
-                animalImage.sprite = pigSprite;
-                break;
-            case "duck":
-                animalImage.sprite = duckSprite;
-                break;
-            default:
-                animalImage.sprite = null;
-                break;
+            Debug.LogError($"Animal '{name}' not found in animalsForSale list!");
+            return;
         }
 
-        // Make sure image is visible if it was hidden before
-        animalImage.enabled = true;
-        SetLeftPanelVisible(true);
+        // Update UI
+        statsText.text =
+            $"HP: {selectedAnimal.hp}\n" +
+            $"Damage: {selectedAnimal.damage}\n" +
+            $"Cost: {selectedAnimal.cost}";
+
+        animalImage.sprite = selectedAnimal.portraitSprite;
+
+        // Enable left panel
+        SetLeftPanel(true);
+
+        // Disable buy button if already owned
+        buyButton.interactable = !PlayerAnimalInventory.Instance.OwnsAnimal(selectedAnimal);
     }
 
+
+    // ---------------------------------------------------------
+    // BUYING ANIMALS
+    // ---------------------------------------------------------
     private void BuyAnimal()
     {
         if (selectedAnimal == null) return;
-
-        if (selectedAnimal.isOwned)
-        {
-            ShowPopup($"{selectedAnimal.name} already owned.");
-            return;
-        }
 
         if (wallet.gold < selectedAnimal.cost)
         {
@@ -162,64 +220,43 @@ public class ShopManager : MonoBehaviour
         }
 
         wallet.SpendGold(selectedAnimal.cost);
-        selectedAnimal.isOwned = true;
+        PlayerAnimalInventory.Instance.AddAnimal(selectedAnimal);
         buyButton.interactable = false;
-        ShowPopup($"{selectedAnimal.name} added to farm team!");
+
+        // 🟢 Spawn world animal ONE TIME
+        AnimalSpawner.Instance.TrySpawnAnimal(selectedAnimal);
+
+        ShowPopup($"{selectedAnimal.animalName} purchased!");
     }
 
-    private void UpdateGoldDisplay(int amount)
+
+    // ---------------------------------------------------------
+    // UI HELPERS
+    // ---------------------------------------------------------
+    private void UpdateGold(int amount)
     {
         goldText.text = $"Gold: {amount}";
     }
 
     private void ShowPopup(string message)
     {
+        popupText.text = message;
+        popupText.alpha = 1;
         StopAllCoroutines();
-        StartCoroutine(ShowPopupCoroutine(message));
+        StartCoroutine(FadePopup());
     }
 
-    private System.Collections.IEnumerator ShowPopupCoroutine(string message)
+    private IEnumerator FadePopup()
     {
-        popupText.text = message;
-        popupText.alpha = 1f;
-        yield return new WaitForSecondsRealtime(1.5f);
-        for (float t = 0; t < 1; t += Time.unscaledDeltaTime)
+        yield return new WaitForSecondsRealtime(1f);
+        for (float t = 0; t < 1f; t += Time.deltaTime)
         {
-            popupText.alpha = Mathf.Lerp(1f, 0f, t);
+            popupText.alpha = 1 - t;
             yield return null;
         }
-        popupText.alpha = 0;
     }
 
-    [System.Serializable]
-    public class AnimalData
-    {
-        public string name;
-        public int cost;
-        public int hp;
-        public int damage;
-        public bool isOwned;
-
-        public AnimalData(string n, int c, int h, int d)
-        {
-            name = n; cost = c; hp = h; damage = d;
-            isOwned = false;
-        }
-    }
-
-    // New Input System hook for "E" or Interact
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-
-        if (shopOpen)
-            CloseShop();
-    }
-
-    // Public property for clean timer access
-    public bool IsShopOpen => shopOpen;
-    
-    private void SetLeftPanelVisible(bool visible)
+    private void SetLeftPanel(bool visible)
     {
         animalImage.gameObject.SetActive(visible);
         statsText.gameObject.SetActive(visible);

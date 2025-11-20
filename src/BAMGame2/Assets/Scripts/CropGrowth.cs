@@ -1,4 +1,7 @@
 using System.Collections;
+using Game399.Shared.Models;
+using Game399.Shared.Services;
+using Game.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,67 +21,148 @@ public class CropGrowth : MonoBehaviour
     private int _stage = 0;
     private float _timer = 0f;
     private bool _isGrowing = false;
-    private bool _paused = false;
+
     private Vector3 _worldPos;
     private FarmArea _farmArea;
+
+    private Coroutine growthRoutine;
+
+    private Crop crop; // reference to watering state
+    private bool wasGrowingBeforeSceneChange = false;
+
+    // MVVM: domain model + service
+    private CropModel _model;
+    private ICropService _cropService;
 
     private void Awake()
     {
         _sr = GetComponent<SpriteRenderer>();
+        crop = GetComponent<Crop>();
+
+        // Resolve crop service once
+        _cropService = ServiceResolver.Resolve<ICropService>();
+        EnsureModel();
     }
-    
+
+    private void EnsureModel()
+    {
+        if (_model != null) return;
+
+        _model = _cropService.CreateCrop();
+        _model.Stage.ChangeEvent += OnStageChanged;
+    }
+
+    private void OnStageChanged(int newStage)
+    {
+        _stage = newStage;
+        UpdateSprite();
+    }
+
+    // Called when first planted
     public void Initialize(FarmManager manager, FarmArea area, Vector3 position)
     {
-        _sr = GetComponent<SpriteRenderer>();
         _worldPos = position;
         _farmArea = area;
         _stage = 0;
         _timer = 0f;
-        _isGrowing = true;
+        _isGrowing = false; // must be watered first
 
         manager.Register(this);
-        StartCoroutine(Grow(manager));
+
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+
+        EnsureModel();
+        _model.Stage.Value = _stage;
+
+        UpdateSprite();
     }
-    
+
+    // Called when loading from save
     public void LoadFromData(FarmManager manager, Vector3 position, int stage, float elapsed)
     {
-        _sr = GetComponent<SpriteRenderer>();
         _worldPos = position;
         _stage = stage;
         _timer = elapsed;
-        _isGrowing = true;
+        _isGrowing = false; // must be watered again unless you add saving of watered state
 
-        _sr.sprite = growthStages[Mathf.Min(stage, growthStages.Length - 1)];
         manager.Register(this);
-        StartCoroutine(Grow(manager));
+
+        EnsureModel();
+        _model.Stage.Value = _stage;
+
+        UpdateSprite();
     }
 
-    private IEnumerator Grow(FarmManager manager)
+    /// <summary>
+    /// Called by Crop when the player waters this crop.
+    /// Uses ICropService to update the domain model, then starts growth.
+    /// </summary>
+    public void OnWateredFromService()
     {
-        while (_isGrowing && _stage < growthStages.Length)
+        EnsureModel();
+
+        if (_model.IsWatered.Value)
         {
-            if (SceneManager.GetActiveScene().name == "Battle" || _paused)
+            Debug.Log($"💧 {name} is already watered (model).");
+            return;
+        }
+
+        _cropService.WaterCrop(_model); // sets IsWatered + IsGrowing
+
+        if (_isGrowing) return;
+
+        _isGrowing = true;
+        growthRoutine = StartCoroutine(Grow());
+        Debug.Log($"🌱 {name} started growing!");
+    }
+
+    private IEnumerator Grow()
+    {
+        int finalStage = growthStages.Length - 1;
+
+        while (_isGrowing)
+        {
+            // Show the current stage
+            UpdateSprite();
+
+            // If we are at the final stage, wait 1 second so the player SEES it,
+            // then finish growth
+            if (_stage == finalStage)
             {
-                yield return null;
-                continue;
+                yield return new WaitForSeconds(timePerStage);
+                FinishGrowth();
+                yield break;
             }
 
-            _sr.sprite = growthStages[_stage];
-            yield return new WaitForSeconds(timePerStage - _timer);
-            _timer = 0f;
+            // Wait for stage duration
+            yield return new WaitForSeconds(timePerStage);
+
+            // Now increment to next stage
             _stage++;
         }
+    }
 
-        if (_stage >= growthStages.Length)
-        {
-            SpawnDrops();
+    private void FinishGrowth()
+    {
+        SpawnDrops();
 
-            if (_farmArea != null)
-                _farmArea.Unregister(_worldPos);
+        if (_farmArea != null)
+            _farmArea.Unregister(_worldPos);
 
-            manager.Unregister(this);
-            Destroy(gameObject);
-        }
+        if (FarmManager.Instance != null)
+            FarmManager.Instance.Unregister(this);
+
+        Destroy(gameObject);
+    }
+
+    private void UpdateSprite()
+    {
+        if (_sr == null || growthStages.Length == 0)
+            return;
+
+        int index = Mathf.Clamp(_stage, 0, growthStages.Length - 1);
+        _sr.sprite = growthStages[index];
     }
 
     private void SpawnDrops()
@@ -90,8 +174,8 @@ public class CropGrowth : MonoBehaviour
 
     private void SpawnWithScatter(GameObject prefab, float spread)
     {
-        Vector2 randomOffset = Random.insideUnitCircle * spread;
-        Vector3 spawnPos = _worldPos + new Vector3(randomOffset.x, randomOffset.y, 0f);
+        Vector2 offset = Random.insideUnitCircle * spread;
+        Vector3 spawnPos = _worldPos + new Vector3(offset.x, offset.y, 0f);
         Instantiate(prefab, spawnPos, Quaternion.identity);
     }
 
@@ -115,19 +199,51 @@ public class CropGrowth : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    private void OnDestroy()
+    {
+        if (_model != null)
+        {
+            _model.Stage.ChangeEvent -= OnStageChanged;
+        }
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (_sr == null) return;
 
         if (scene.name == "Battle")
         {
-            _paused = true;
-            _sr.enabled = false;  // hide
+            _sr.enabled = false;
+
+            // Remember if it was growing
+            wasGrowingBeforeSceneChange = _isGrowing;
+
+            // Stop growth coroutine
+            _isGrowing = false;
+
+            if (growthRoutine != null)
+            {
+                StopCoroutine(growthRoutine);
+                growthRoutine = null;
+            }
+
+            return;
         }
-        else if (scene.name == "Game")
+
+        if (scene.name == "Game")
         {
-            _paused = false;
-            _sr.enabled = true;   // show again
+            _sr.enabled = true;
+            UpdateSprite();
+
+            // Resume growth if it was previously growing and not finished
+            if (wasGrowingBeforeSceneChange &&
+                _stage < growthStages.Length &&
+                _model != null &&
+                _model.IsWatered.Value)
+            {
+                _isGrowing = true;
+                growthRoutine = StartCoroutine(Grow());
+            }
         }
     }
 }

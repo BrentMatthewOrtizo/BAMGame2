@@ -1,70 +1,98 @@
-using System.Collections;
+using Game399.Shared.Models;
+using Game399.Shared.Services;
+using Game.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DayNightCycleUI : MonoBehaviour
+public class DayNightCycleUI : ObserverMonoBehaviour
 {
     [Header("Durations")]
     public float dayDuration = 180f;
-    public float nightDuration = 30f;
 
     [Header("UI")]
     public TextMeshProUGUI phaseLabel;
     public TextMeshProUGUI timerLabel;
 
-    public bool IsDay { get; private set; } = true;
-    
-    public float timeLeft;
+    private IWorldStateService _worldService;
+    private WorldStateModel _world;
+    private bool _transitionTriggered;
 
-    // Expose current time left safely
-    public float TimeLeft => timeLeft;
+    // Convenience wrappers if anything else reads these
+    public bool IsDay => _world?.IsDay.Value ?? true;
+    public float TimeLeft => _world?.TimeLeft.Value ?? 0f;
 
-    private void Start()
+    protected override void Awake()
     {
-        StartDay();
-        StartCoroutine(CycleLoop());
+        base.Awake();
+        _worldService = ServiceResolver.Resolve<IWorldStateService>();
+        _world = _worldService.World;
     }
 
-    private IEnumerator CycleLoop()
+    protected override void Start()
     {
-        while (true)
+        base.Start();
+
+        // When this UI is in the Game scene, start the day phase
+        if (SceneManager.GetActiveScene().name == "Game")
         {
-            timeLeft -= Time.deltaTime;
-            UpdateTimer(timeLeft);
-
-            if (timeLeft <= 0)
-            {
-                if (IsDay)
-                {
-                    SavePlayerAndCrops();
-                    yield return new WaitForSeconds(0.25f);
-                    SceneManager.LoadScene("Battle");
-                    yield break;
-                }
-                else
-                {
-                    SceneManager.LoadScene("Game");
-                    yield break;
-                }
-            }
-
-            yield return null;
+            _worldService.StartDay(dayDuration);
         }
     }
 
-    private void StartDay()
+    protected override void Subscribe()
     {
-        IsDay = true;
-        timeLeft = dayDuration;
-        phaseLabel.text = "Day";
-        UpdateTimer(timeLeft);
+        if (_world == null) return;
+
+        _world.IsDay.ChangeEvent += OnPhaseChanged;
+        _world.TimeLeft.ChangeEvent += OnTimeChanged;
     }
 
-    private void UpdateTimer(float t)
+    protected override void Unsubscribe()
     {
-        int m = Mathf.FloorToInt(t / 60);
-        int s = Mathf.FloorToInt(t % 60);
+        if (_world == null) return;
+
+        _world.IsDay.ChangeEvent -= OnPhaseChanged;
+        _world.TimeLeft.ChangeEvent -= OnTimeChanged;
+    }
+
+    private void Update()
+    {
+        if (_worldService == null || _transitionTriggered)
+            return;
+
+        // Domain tick
+        _worldService.Tick(Time.deltaTime);
+
+        // Handle transition once when timer hits zero
+        if (_world.TimeLeft.Value <= 0.01f)
+        {
+            _transitionTriggered = true;
+
+            if (_world.IsDay.Value)
+            {
+                SavePlayerAndCrops();
+                SceneManager.LoadScene("Battle");
+            }
+            else
+            {
+                SceneManager.LoadScene("Game");
+            }
+        }
+    }
+
+    private void OnPhaseChanged(bool isDay)
+    {
+        if (phaseLabel != null)
+            phaseLabel.text = isDay ? "Day" : "Night";
+    }
+
+    private void OnTimeChanged(float t)
+    {
+        if (timerLabel == null) return;
+
+        int m = Mathf.FloorToInt(t / 60f);
+        int s = Mathf.FloorToInt(t % 60f);
         timerLabel.text = $"Timer: {m:0}:{s:00}";
     }
 

@@ -26,9 +26,18 @@ public class Collectible : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Keep the original player-pickup behavior
         if (!other.CompareTag("Player"))
             return;
 
+        Collect();
+    }
+
+    /// <summary>
+    /// Shared pickup logic so both Player and Animals can collect items.
+    /// </summary>
+    public void Collect()
+    {
         switch (type)
         {
             case CollectibleType.Gold:
@@ -73,5 +82,15 @@ public class Collectible : MonoBehaviour
                 }
                 break;
         }
+    }
+    
+    public void CollectByAnimal()
+    {
+        // Simulate what happens when player picks it up
+        PlayerWallet.Instance.AddGold(amount);
+
+        // You may also add seeds/items to inventory here
+
+        Destroy(gameObject);
     }
 }
