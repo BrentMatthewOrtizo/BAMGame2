@@ -1,0 +1,73 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerMovement : MonoBehaviour
+{
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
+    [SerializeField] private float moveSpeed = 5f;
+    private Rigidbody2D rb;
+    private Vector2 moveInput;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
+    // This keeps track of the last direction moved (for watering/idle animations)
+    public Vector2 LastMoveDir { get; private set; }
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (GameStateManager.Instance && GameStateManager.Instance.playerPosition != Vector3.zero)
+            transform.position = GameStateManager.Instance.playerPosition;
+    }
+
+    void Update()
+    {
+        bool isMoving = moveInput.sqrMagnitude > 0.01f;
+        animator.SetBool("isWalking", isMoving);
+
+        if (isMoving)
+        {
+            animator.SetFloat("InputX", moveInput.x);
+            animator.SetFloat("InputY", moveInput.y);
+            animator.SetFloat("LastInputX", moveInput.x);
+            animator.SetFloat("LastInputY", moveInput.y);
+
+            // 🧭 Store the last direction we moved in
+            LastMoveDir = moveInput.normalized;
+        }
+
+        if (moveInput.x > 0.1f)
+            spriteRenderer.flipX = false;
+        else if (moveInput.x < -0.1f)
+            spriteRenderer.flipX = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (PauseMenu.IsGamePaused)
+        {
+            Log.Info($"IsGamePaused registered as {PauseMenu.IsGamePaused} in PlayerMovement");
+            rb.linearVelocity =  Vector2.zero; //stops player
+            return;
+        }
+        rb.linearVelocity = moveInput.normalized * moveSpeed;
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 0.9f);
+    }
+#endif
+}
