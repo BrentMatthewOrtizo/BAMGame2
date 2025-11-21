@@ -31,7 +31,8 @@ public class BattleManager : MonoBehaviour
 
     private void LoadNightIndex()
     {
-        nightIndex = Mathf.Clamp(PlayerPrefs.GetInt("Night", 1), 1, 3);
+        // ❗ No clamp here — we WANT nightIndex > 3 after winning night 3
+        nightIndex = PlayerPrefs.GetInt("Night", 1);
         Debug.Log("[BATTLE] Loaded night = " + nightIndex);
     }
 
@@ -49,7 +50,10 @@ public class BattleManager : MonoBehaviour
         skeletonUnits.Clear();
 
         SpawnAnimals();
-        SpawnSkeletonsForNight(nightIndex);
+
+        // Clamp ONLY for skeleton spawning
+        int spawnNight = Mathf.Clamp(nightIndex, 1, 3);
+        SpawnSkeletonsForNight(spawnNight);
 
         if (animalUnits.Count == 0)
         {
@@ -77,10 +81,9 @@ public class BattleManager : MonoBehaviour
             BattleUnit unit = obj.GetComponent<BattleUnit>();
             if (unit == null) continue;
 
-            // Assign stats
             unit.Initialize(def.hp, def.damage);
 
-            // Assign sprite (animals face left)
+            // Animals always face left
             if (unit.spriteRenderer != null)
             {
                 unit.spriteRenderer.sprite = def.battleSprite;
@@ -110,12 +113,11 @@ public class BattleManager : MonoBehaviour
 
             unit.Initialize(def.hp, def.damage);
 
-            // Skeletons face right → no flipping needed unless your sprite faces left by default.
+            // Skeletons face right
             if (unit.spriteRenderer != null)
                 unit.spriteRenderer.flipX = false;
 
             unit.facesLeft = false;
-
             skeletonUnits.Add(unit);
         }
     }
@@ -125,20 +127,18 @@ public class BattleManager : MonoBehaviour
     // ----------------------------------------------------------
     private IEnumerator BattleLoop()
     {
-        // 1. INTRO POPUP
+        // Intro popup
         if (popupUI != null)
         {
-            popupUI.Show($"Night {nightIndex} - Survive!");
+            popupUI.Show($"Night {Mathf.Clamp(nightIndex, 1, 3)} - Survive!");
             yield return new WaitForSeconds(2f);
             popupUI.Hide();
         }
 
-        // Allow popup to fade out cleanly
         yield return new WaitForSeconds(0.5f);
-
         if (!battleRunning) yield break;
 
-        // 2. BATTLE ROUNDS
+        // Combat
         while (battleRunning)
         {
             yield return StartCoroutine(AnimalsAttack());
@@ -146,7 +146,7 @@ public class BattleManager : MonoBehaviour
             if (AllDead(skeletonUnits))
             {
                 battleRunning = false;
-                yield return StartCoroutine(ShowWinPopup());
+                yield return ShowWinPopup();
                 yield return HandleWin();
                 yield break;
             }
@@ -156,7 +156,7 @@ public class BattleManager : MonoBehaviour
             if (AllDead(animalUnits))
             {
                 battleRunning = false;
-                yield return StartCoroutine(ShowLosePopup());
+                yield return ShowLosePopup();
                 yield return HandleLose();
                 yield break;
             }
@@ -234,7 +234,7 @@ public class BattleManager : MonoBehaviour
     private bool AllDead(List<BattleUnit> list)
     {
         foreach (var u in list)
-            if (!u.IsDead)
+            if (u != null && !u.IsDead)
                 return false;
 
         return true;
@@ -245,25 +245,16 @@ public class BattleManager : MonoBehaviour
     // ----------------------------------------------------------
     private IEnumerator HandleWin()
     {
-       
-        if (popupUI != null)
+        if (nightIndex >= 3)
         {
-            popupUI.Show("Victory! You made it through the night");
-            yield return new WaitForSeconds(2f);
-            popupUI.Hide();
-        }
-
-        nightIndex++;
-        SaveNightIndex(nightIndex);
-        
-        if (nightIndex > 3)
-        {
-            yield return new WaitForSeconds(1f);
+            // This WAS the final night!
             SceneManager.LoadScene("End");
             yield break;
         }
-        
-        yield return new WaitForSeconds(1f);
+
+        // NOT final night → move forward normally
+        nightIndex++;
+        SaveNightIndex(nightIndex);
         SceneManager.LoadScene("Game");
     }
 
