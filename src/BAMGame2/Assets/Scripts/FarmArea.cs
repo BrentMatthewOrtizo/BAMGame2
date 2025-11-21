@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using UnityEngine;
 using Game399.Shared.Logic;
 
@@ -15,6 +17,7 @@ public class FarmArea : MonoBehaviour, IInteractable
     
     private FarmLogic _logic;
 
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
 
     private void Awake()
     {
@@ -32,14 +35,14 @@ public class FarmArea : MonoBehaviour, IInteractable
 
         if (!_collider.bounds.Contains(playerPos))
         {
-            Debug.Log("Player not in farm area");
+            Log.Info("Player not in farm area");
             return;
         }
 
         // Try planting through FarmLogic instead of manual check
         if (!_logic.TryPlant(playerPos.x, playerPos.y))
         {
-            Debug.Log("Too close to another crop");
+            Log.Info("Too close to another crop");
             return;
         }
 
@@ -48,7 +51,7 @@ public class FarmArea : MonoBehaviour, IInteractable
         GameObject prefab = FarmManager.Instance.cropPrefab;
         if (prefab == null)
         {
-            Debug.LogError("No crop prefab set in FarmManager");
+            Log.Error("No crop prefab set in FarmManager");
             return;
         }
 
@@ -56,7 +59,7 @@ public class FarmArea : MonoBehaviour, IInteractable
         var crop = cropGO.GetComponent<CropGrowth>();
         crop.Initialize(FarmManager.Instance, this, playerPos);
         
-        Debug.Log($"Planted crop at {playerPos}");
+        Log.Info($"Planted crop at {playerPos}");
     }
 
     // Called by CropGrowth when harvested

@@ -32,10 +32,8 @@ public class Collectible : MonoBehaviour
 
         Collect();
     }
-
-    /// <summary>
-    /// Shared pickup logic so both Player and Animals can collect items.
-    /// </summary>
+    
+    
     public void Collect()
     {
         switch (type)

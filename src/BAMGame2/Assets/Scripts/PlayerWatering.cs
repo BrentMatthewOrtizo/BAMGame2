@@ -30,26 +30,26 @@ public class PlayerWatering : MonoBehaviour
     {
         isWatering = true;
 
-        // 🛑 Stop movement immediately
+        // Stop movement immediately
         rb.linearVelocity = Vector2.zero;
         playerMovement.enabled = false;
 
-        // 🎬 Play watering animation
+        // Play watering animation
         animator.SetBool("isWatering", true);
 
-        // 🔁 Ensure facing direction is preserved
+        // Ensure facing direction is preserved
         Vector2 facingDir = playerMovement.LastMoveDir;
         animator.SetFloat("LastInputX", facingDir.x);
         animator.SetFloat("LastInputY", facingDir.y);
 
-        // 💧 Water crops nearby
+        // Water crops nearby
         if (FarmManager.Instance != null)
             FarmManager.Instance.WaterNearbyCrops(transform.position, FarmManager.Instance.wateringRadius);
 
         // Wait for the animation to finish
         yield return new WaitForSeconds(wateringDuration);
 
-        // ✅ Resume movement
+        // Resume movement
         animator.SetBool("isWatering", false);
         playerMovement.enabled = true;
         isWatering = false;

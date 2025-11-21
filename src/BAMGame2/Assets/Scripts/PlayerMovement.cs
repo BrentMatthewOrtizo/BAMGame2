@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    // 🧭 This keeps track of the last direction moved (for watering/idle animations)
+    // This keeps track of the last direction moved (for watering/idle animations)
     public Vector2 LastMoveDir { get; private set; }
 
     void Start()

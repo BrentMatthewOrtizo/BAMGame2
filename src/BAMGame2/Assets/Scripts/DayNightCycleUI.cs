@@ -1,6 +1,7 @@
 using Game399.Shared.Models;
 using Game399.Shared.Services;
 using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,8 @@ public class DayNightCycleUI : ObserverMonoBehaviour
     // Convenience wrappers if anything else reads these
     public bool IsDay => _world?.IsDay.Value ?? true;
     public float TimeLeft => _world?.TimeLeft.Value ?? 0f;
+    
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
 
     protected override void Awake()
     {
@@ -102,21 +105,21 @@ public class DayNightCycleUI : ObserverMonoBehaviour
         if (player && GameStateManager.Instance)
         {
             GameStateManager.Instance.SavePlayer(player.transform.position);
-            Debug.Log($"Saved player position: {player.transform.position}");
+            Log.Info($"Saved player position: {player.transform.position}");
         }
         else
         {
-            Debug.LogWarning("Could not find Player or GameStateManager when saving position.");
+            Log.Warn("Could not find Player or GameStateManager when saving position.");
         }
 
         if (FarmManager.Instance != null)
         {
-            Debug.Log("Saving crops before night transition...");
+            Log.Info("Saving crops before night transition...");
             FarmManager.Instance.SaveCrops();
         }
         else
         {
-            Debug.LogWarning("FarmManager not found when saving crops.");
+            Log.Warn("FarmManager not found when saving crops.");
         }
     }
 }
