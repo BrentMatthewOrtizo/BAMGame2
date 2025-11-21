@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88644832b116224889a19b8e5531711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycleUI
-  dayDuration: 5
+  dayDuration: 10
   phaseLabel: {fileID: 2027571049}
   timerLabel: {fileID: 1239691510}
 --- !u!114 &359570295

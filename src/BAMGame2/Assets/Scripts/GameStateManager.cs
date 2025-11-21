@@ -26,11 +26,9 @@ public class GameStateManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // --------------------------------------------------
-        // Reset Night ONLY when starting GAME scene in Editor
-        // --------------------------------------------------
 #if UNITY_EDITOR
-        Debug.Log("[EDITOR] Resetting Night to 1 for testing.");
+        // ALWAYS reset night to 1 when pressing Play in Editor
+        Debug.Log("[EDITOR] Reset Night to 1 on Play");
         PlayerPrefs.SetInt("Night", 1);
 #endif
     }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chicken
   m_EditorClassIdentifier: Assembly-CSharp::AnimalDefinition
   animalName: Chicken
-  hp: 3
-  damage: 3
+  hp: 1000
+  damage: 1000
   cost: 10
   portraitSprite: {fileID: 2161211097934087789, guid: e08884e4b4edc4563854a81b83fb1d2d, type: 3}
   worldPrefab: {fileID: 463370590261135388, guid: ae8233b1fed88f04faccab81d40fbbbb, type: 3}
