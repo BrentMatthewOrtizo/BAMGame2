@@ -1,6 +1,6 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class BattleUnit : MonoBehaviour
 {
@@ -12,70 +12,45 @@ public class BattleUnit : MonoBehaviour
     [Header("References")]
     public SpriteRenderer spriteRenderer;
     public TMP_Text hpText;
+    public TMP_Text dmgText;
 
     [Header("Animation Settings")]
     public float attackTiltAngle = 45f;
     public float attackTiltSpeed = 0.15f;
     public float hitFlashDuration = 0.15f;
 
+    // Determines whether this unit tilts left or right during attack
+    public bool facesLeft = false;
+
     public bool IsDead => currentHP <= 0;
 
-    private Color defaultColor;
-
-    private void Awake()
-    {
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
-
-        defaultColor = spriteRenderer.color;
-    }
-
-    private void Start()
-    {
-        UpdateHPText();
-    }
-
-    
-    // PUBLIC — Init stats
-    
+    // ----------------------------------------------------
+    // INITIALIZE UNIT
+    // ----------------------------------------------------
     public void Initialize(int hp, int dmg)
     {
         maxHP = hp;
         currentHP = hp;
         damage = dmg;
-        UpdateHPText();
+
+        UpdateUI();
     }
 
-    
-    // PUBLIC — Attack animation (tilt forward)
-    
-    public IEnumerator PlayAttackAnimation()
+    // ----------------------------------------------------
+    // UI UPDATE
+    // ----------------------------------------------------
+    private void UpdateUI()
     {
-        // Tilt forward
-        yield return TiltTo(attackTiltAngle);
+        if (hpText != null)
+            hpText.text = $"HP: {currentHP}";
 
-        // Tilt back
-        yield return TiltTo(0f);
+        if (dmgText != null)
+            dmgText.text = $"DMG: {damage}";
     }
 
-    private IEnumerator TiltTo(float angle)
-    {
-        Quaternion startRot = transform.rotation;
-        Quaternion targetRot = Quaternion.Euler(0, 0, angle);
-
-        float t = 0f;
-        while (t < attackTiltSpeed)
-        {
-            t += Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(startRot, targetRot, t / attackTiltSpeed);
-            yield return null;
-        }
-        transform.rotation = targetRot;
-    }
-
-    
-    // PUBLIC — Take Damage
-    
+    // ----------------------------------------------------
+    // TAKE DAMAGE
+    // ----------------------------------------------------
     public void TakeDamage(int amount)
     {
         if (IsDead) return;
@@ -84,57 +59,43 @@ public class BattleUnit : MonoBehaviour
         if (currentHP < 0) currentHP = 0;
 
         StartCoroutine(HitFlash());
-
-        UpdateHPText();
-
-        if (currentHP == 0)
-        {
-            Die();
-        }
+        UpdateUI();
     }
 
-    
-    // PUBLIC — Flash Red on Hit
+    // ----------------------------------------------------
+    // ATTACK ANIMATION (mirrored based on facesLeft)
+    // ----------------------------------------------------
+    public IEnumerator PlayAttackAnimation()
+    {
+        Vector3 originalRot = transform.localEulerAngles;
+
+        float angle = attackTiltAngle;
+
+        // Mirror tilt direction if facing left
+        if (facesLeft)
+            angle = -attackTiltAngle;
+
+        Vector3 tilted = new Vector3(0, 0, angle);
+
+        // Tilt
+        transform.localEulerAngles = tilted;
+        yield return new WaitForSeconds(attackTiltSpeed);
+
+        // Return
+        transform.localEulerAngles = originalRot;
+        yield return new WaitForSeconds(attackTiltSpeed);
+    }
+
+    // ----------------------------------------------------
+    // FLASH WHEN HIT
+    // ----------------------------------------------------
     private IEnumerator HitFlash()
     {
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(hitFlashDuration);
-        spriteRenderer.color = defaultColor;
-    }
-
-    
-    // PUBLIC — Death animation
-    
-    private void Die()
-    {
-        StartCoroutine(PlayDeathAnimation());
-    }
-
-    private IEnumerator PlayDeathAnimation()
-    {
-        // Gray out
-        spriteRenderer.color = Color.gray;
-
-        // Flip upside down
-        Quaternion startRot = transform.rotation;
-        Quaternion endRot = Quaternion.Euler(0, 0, 180f);
-
-        float t = 0;
-        while (t < 0.25f)
+        if (spriteRenderer != null)
         {
-            t += Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(startRot, endRot, t / 0.25f);
-            yield return null;
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(hitFlashDuration);
+            spriteRenderer.color = Color.white;
         }
-
-        transform.rotation = endRot; 
-    }
-
-    // UPDATE HP UI
-    
-    public void UpdateHPText()
-    {
-        if (hpText != null)
-            hpText.text = currentHP.ToString();
     }
 }

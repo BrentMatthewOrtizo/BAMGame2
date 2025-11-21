@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1143fe2f4fe4d45ff9f1ce5d57bac6c5, type: 3}
+  m_Name: Skeleton_Night1
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
+  enemyName: Skeleton1
+  hp: 3
+  damage: 3
+  battlePrefab: {fileID: 3523225176731996062, guid: 9a43f2273149643d9a9dd34f29154e38, type: 3}

@@ -15,5 +15,8 @@ public class AnimalDefinition : ScriptableObject
     public Sprite portraitSprite;
 
     [Header("World Prefab")]
-    public GameObject worldPrefab;   // <— ADD THIS
+    public GameObject worldPrefab;
+
+    [Header("Battle Sprite")]
+    public Sprite battleSprite;
 }

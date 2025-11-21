@@ -18,3 +18,4 @@ MonoBehaviour:
   cost: 10
   portraitSprite: {fileID: 2161211097934087789, guid: e08884e4b4edc4563854a81b83fb1d2d, type: 3}
   worldPrefab: {fileID: 463370590261135388, guid: ae8233b1fed88f04faccab81d40fbbbb, type: 3}
+  battleSprite: {fileID: 2161211097934087789, guid: e08884e4b4edc4563854a81b83fb1d2d, type: 3}
