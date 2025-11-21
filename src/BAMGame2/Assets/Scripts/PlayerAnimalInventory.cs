@@ -5,7 +5,7 @@ public class PlayerAnimalInventory : MonoBehaviour
 {
     public static PlayerAnimalInventory Instance { get; private set; }
 
-    [Tooltip("List of animals the player currently owns.")]
+    [Tooltip("List of animals the player currently owns..")]
     public List<AnimalDefinition> ownedAnimals = new List<AnimalDefinition>();
 
     private void Awake()
