@@ -1,15 +1,18 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
     [SerializeField] private float moveSpeed = 5f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    // 🧭 This keeps track of the last direction moved (for watering/idle animations)
+    // This keeps track of the last direction moved (for watering/idle animations)
     public Vector2 LastMoveDir { get; private set; }
 
     void Start()
@@ -46,6 +49,12 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (PauseMenu.IsGamePaused)
+        {
+            Log.Info($"IsGamePaused registered as {PauseMenu.IsGamePaused} in PlayerMovement");
+            rb.linearVelocity =  Vector2.zero; //stops player
+            return;
+        }
         rb.linearVelocity = moveInput.normalized * moveSpeed;
     }
 

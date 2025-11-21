@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using Game399.Shared.Models;
 
 public class AnimalSpawner : MonoBehaviour
 {
     public static AnimalSpawner Instance { get; private set; }
+    
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
 
     [Header("Animal Prefabs (must match AnimalDefinition names)")]
     public List<AnimalDefinition> animalDefinitions;   // ScriptableObjects
@@ -19,35 +23,32 @@ public class AnimalSpawner : MonoBehaviour
         Instance = this;
 
         if (animalParent == null)
-            Debug.LogWarning("[AnimalSpawner] animalParent is not assigned!");
+            Log.Warn("[AnimalSpawner] animalParent is not assigned!");
 
         if (spawnRegion == null)
-            Debug.LogWarning("[AnimalSpawner] spawnRegion BoxCollider2D is not assigned!");
+            Log.Warn("[AnimalSpawner] spawnRegion BoxCollider2D is not assigned!");
 
         if (animalDefinitions.Count != animalPrefabs.Count)
-            Debug.LogWarning("[AnimalSpawner] Definitions and Prefabs count mismatch.");
+            Log.Warn("[AnimalSpawner] Definitions and Prefabs count mismatch.");
     }
 
     private void Start()
     {
         RestoreAnimals();
     }
-
-    // =========================================================================
-    //  PUBLIC — Called when buying an animal
-    // =========================================================================
+    
     public void TrySpawnAnimal(AnimalDefinition definition)
     {
         if (!PlayerAnimalInventory.Instance.OwnsAnimal(definition))
         {
-            Debug.Log($"[AnimalSpawner] Player does NOT own {definition.animalName}");
+            Log.Info($"[AnimalSpawner] Player does NOT own {definition.animalName}");
             return;
         }
 
         GameObject prefab = GetPrefab(definition);
         if (prefab == null)
         {
-            Debug.LogError($"[AnimalSpawner] No prefab found for {definition.animalName}");
+            Log.Error($"[AnimalSpawner] No prefab found for {definition.animalName}");
             return;
         }
 
@@ -66,7 +67,7 @@ public class AnimalSpawner : MonoBehaviour
         // Save persistence state
         SaveAnimalState(animal, definition);
 
-        Debug.Log($"[AnimalSpawner] Spawned {definition.animalName} at {pos}");
+        Log.Info($"[AnimalSpawner] Spawned {definition.animalName} at {pos}");
     }
 
     // =========================================================================
@@ -85,10 +86,7 @@ public class AnimalSpawner : MonoBehaviour
         GameStateManager.Instance.animals.RemoveAll(a => a.animalName == def.animalName);
         GameStateManager.Instance.animals.Add(data);
     }
-
-    // =========================================================================
-    //  RESTORE ANIMALS AT SCENE LOAD
-    // =========================================================================
+    
     private void RestoreAnimals()
     {
         foreach (var data in GameStateManager.Instance.animals)
@@ -107,18 +105,16 @@ public class AnimalSpawner : MonoBehaviour
             AnimalMovement move = animal.GetComponent<AnimalMovement>();
             move.definition = animalDefinitions.Find(d => d.animalName == data.animalName);
 
-            Debug.Log($"[AnimalSpawner] Restored {data.animalName} at {pos}");
+            Log.Info($"[AnimalSpawner] Restored {data.animalName} at {pos}");
         }
     }
 
-    // =========================================================================
-    //  HELPER FUNCTIONS
-    // =========================================================================
+
     private Vector3 GetRandomPointInRegion()
     {
         if (spawnRegion == null)
         {
-            Debug.LogWarning("[AnimalSpawner] No spawnRegion provided. Spawning at Vector3.zero");
+            Log.Warn("[AnimalSpawner] No spawnRegion provided. Spawning at Vector3.zero");
             return Vector3.zero;
         }
 

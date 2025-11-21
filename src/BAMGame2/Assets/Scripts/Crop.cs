@@ -1,9 +1,13 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using UnityEngine;
 
 public class Crop : MonoBehaviour
 {
     [Header("Watering State")]
     public bool isWatered = false;
+    
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
 
     private CropGrowth cropGrowth;
 
@@ -17,16 +21,17 @@ public class Crop : MonoBehaviour
     {
         if (isWatered)
         {
-            Debug.Log($"💧 {name} is already watered.");
+            Log.Info($"{name} is already watered.");
             return;
         }
 
         isWatered = true;
-        Debug.Log($"💧 Watered {name}, growth starting...");
+        Log.Info($"Watered {name}, growth starting.");
 
         if (cropGrowth != null)
         {
             // MVVM: this will update the CropModel via ICropService
+            cropGrowth.SyncModelWaterState();
             cropGrowth.OnWateredFromService();
         }
     }

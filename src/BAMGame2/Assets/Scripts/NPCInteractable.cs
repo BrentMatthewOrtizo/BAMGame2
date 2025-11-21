@@ -1,3 +1,5 @@
+using Game.Runtime;
+using Game399.Shared.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -5,12 +7,14 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 {
     [Header("NPC Settings")]
     public string npcName = "Farmer Bob";
+    
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
 
     public bool CanInteract() => true;
 
     public void Interact()
     {
-        Debug.Log($"{npcName}: Toggling shop UI...");
+        Log.Info($"{npcName}: Toggling shop UI...");
 
         if (ShopManager.Instance != null)
         {
@@ -18,7 +22,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.LogWarning("[NPCInteractable] No ShopManager instance found in scene.");
+            Log.Warn("[NPCInteractable] No ShopManager instance found in scene.");
         }
     }
 }

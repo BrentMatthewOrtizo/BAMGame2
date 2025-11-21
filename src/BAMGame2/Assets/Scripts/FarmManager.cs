@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Game399.Shared.Diagnostics;
+using Game.Runtime;
 
 public class FarmManager : MonoBehaviour
 {
+    private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
     public static FarmManager Instance { get; private set; }
 
     [Header("Crop Settings")]
@@ -20,14 +23,14 @@ public class FarmManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Duplicate FarmManager detected! Destroying duplicate");
+            Log.Warn("Duplicate FarmManager detected! Destroying duplicate");
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Debug.Log($"FarmManager initialized (scene: {gameObject.scene.name})");
+        Log.Info($"FarmManager initialized (scene: {gameObject.scene.name})");
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -49,7 +52,7 @@ public class FarmManager : MonoBehaviour
     private void OnDisable()
     {
         if (Instance != this) return; // don’t save from duplicate
-        Debug.Log("FarmManager OnDisable called, saving crops...");
+        Log.Info("FarmManager OnDisable called, saving crops...");
         SaveCrops();
     }
 
@@ -58,7 +61,7 @@ public class FarmManager : MonoBehaviour
         if (!_activeCrops.Contains(crop))
         {
             _activeCrops.Add(crop);
-            Debug.Log($"Registered crop: {crop.name} at {crop.transform.position}");
+            Log.Info($"Registered crop: {crop.name} at {crop.transform.position}");
         }
     }
 
@@ -84,7 +87,7 @@ public class FarmManager : MonoBehaviour
         }
 
         GameStateManager.Instance.SaveCrops(cropDataList);
-        Debug.Log($"Saved {cropDataList.Count} crops");
+        Log.Info($"Saved {cropDataList.Count} crops");
     }
 
     private void LoadCrops()
@@ -92,10 +95,10 @@ public class FarmManager : MonoBehaviour
         if (GameStateManager.Instance == null || cropPrefab == null)
             return;
 
-        // ❗ Do NOT load if we still have active crops from DontDestroyOnLoad
+        // Do NOT load if we still have active crops from DontDestroyOnLoad
         if (_activeCrops.Count > 0)
         {
-            Debug.Log("Skipping crop load — crops already exist (preventing duplicates)");
+            Log.Info("Skipping crop load — crops already exist (preventing duplicates)");
             return;
         }
 
@@ -107,7 +110,7 @@ public class FarmManager : MonoBehaviour
             _activeCrops.Add(crop);
         }
 
-        Debug.Log($"Loaded {GameStateManager.Instance.crops.Count} crops");
+        Log.Info($"Loaded {GameStateManager.Instance.crops.Count} crops");
     }
 
     // 🪣 Watering System
@@ -129,7 +132,7 @@ public class FarmManager : MonoBehaviour
         }
 
         if (!anyWatered)
-            Debug.Log("💧 No dry crops nearby!");
+            Log.Info("No dry crops nearby!");
     }
 
     // Draw watering radius in Scene view for debugging

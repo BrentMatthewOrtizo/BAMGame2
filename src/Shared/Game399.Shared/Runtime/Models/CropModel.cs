@@ -1,9 +1,7 @@
 namespace Game399.Shared.Models
 {
-    /// <summary>
-    /// Pure domain representation of a crop.
-    /// Unity views (CropGrowth) observe this model.
-    /// </summary>
+    // Domain representation of a crop.
+    // Unity views (CropGrowth) observe this model.
     public class CropModel
     {
         public ObservableValue<int> Stage { get; } = new();
