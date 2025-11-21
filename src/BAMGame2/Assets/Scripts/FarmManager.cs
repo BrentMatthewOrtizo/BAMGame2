@@ -94,10 +94,11 @@ public class FarmManager : MonoBehaviour
     {
         if (GameStateManager.Instance == null || cropPrefab == null)
             return;
-        
+
+        // Do NOT load if we still have active crops from DontDestroyOnLoad
         if (_activeCrops.Count > 0)
         {
-            Debug.Log("Skipping crop load — crops already exist (preventing duplicates)");
+            Log.Info("Skipping crop load — crops already exist (preventing duplicates)");
             return;
         }
 
@@ -131,7 +132,7 @@ public class FarmManager : MonoBehaviour
         }
 
         if (!anyWatered)
-            Debug.Log("No dry crops nearby!");
+            Log.Info("No dry crops nearby!");
     }
 
     // Draw watering radius in Scene view for debugging

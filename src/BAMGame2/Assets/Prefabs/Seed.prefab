@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   ID: 1
   Name: Seed
-  quantity: 1
+  quantity: 2
 --- !u!114 &5969238613979827906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
   type: 1
-  amount: 1
+  amount: 2
 --- !u!1 &8503132654320788444
 GameObject:
   m_ObjectHideFlags: 0

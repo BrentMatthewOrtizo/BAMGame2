@@ -16,8 +16,8 @@ public class FarmArea : MonoBehaviour, IInteractable
     private Collider2D _collider;
     
     private FarmLogic _logic;
-
     private static IGameLog Log => ServiceResolver.Resolve<IGameLog>();
+
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class FarmArea : MonoBehaviour, IInteractable
         }
 
 
-        // 🌱 Plant new crop
+        // Plant new crop
         GameObject prefab = FarmManager.Instance.cropPrefab;
         if (prefab == null)
         {
