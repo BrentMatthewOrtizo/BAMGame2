@@ -1840,6 +1840,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   startScreenMusic: {fileID: 8300000, guid: 4321e997f4cc749a2a4a9b51c9f6eb14, type: 3}
   farmMusic: {fileID: 8300000, guid: c47abf1e87c254ddc99f76fae9333ad9, type: 3}
+  battleMusic: {fileID: 8300000, guid: 706ffadfe07444e0d99f6b02f7003fa5, type: 3}
+  endMusic: {fileID: 8300000, guid: 706ffadfe07444e0d99f6b02f7003fa5, type: 3}
   itemPickupSFX: {fileID: 8300000, guid: ab3dde378a92c4099ab18ba0854d49a0, type: 3}
   plantSeedSFX: {fileID: 0}
   clickHoverSFX: {fileID: 8300000, guid: 3abeb8db7cbe94ca48957a02bab82a46, type: 3}

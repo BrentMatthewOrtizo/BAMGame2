@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88644832b116224889a19b8e5531711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycleUI
-  dayDuration: 5
+  dayDuration: 40
   phaseLabel: {fileID: 2027571049}
   timerLabel: {fileID: 1239691510}
 --- !u!1 &394412230
@@ -9471,6 +9471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   startScreenMusic: {fileID: 8300000, guid: 4321e997f4cc749a2a4a9b51c9f6eb14, type: 3}
   farmMusic: {fileID: 8300000, guid: c47abf1e87c254ddc99f76fae9333ad9, type: 3}
+  battleMusic: {fileID: 0}
+  endMusic: {fileID: 0}
   itemPickupSFX: {fileID: 8300000, guid: ab3dde378a92c4099ab18ba0854d49a0, type: 3}
   plantSeedSFX: {fileID: 0}
   clickHoverSFX: {fileID: 8300000, guid: 3abeb8db7cbe94ca48957a02bab82a46, type: 3}
