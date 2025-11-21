@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Pig
   m_EditorClassIdentifier: Assembly-CSharp::AnimalDefinition
   animalName: Pig
-  hp: 5
-  damage: 3
+  hp: 8
+  damage: 4
   cost: 15
   portraitSprite: {fileID: 853589032397801146, guid: d80ab3e720a1f440db306b40c5b8333e, type: 3}
   worldPrefab: {fileID: 3784293509874785507, guid: 5223b16e0733c9c4ebd6f789a2a15806, type: 3}
