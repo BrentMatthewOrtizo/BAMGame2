@@ -14,6 +14,10 @@ public class BattleUnit : MonoBehaviour
     public TMP_Text hpText;
     public TMP_Text dmgText;
 
+    [Header("Audio")]
+    public AudioSource hitAudio;   // Drag AudioSource here
+    public AudioClip hitSound;     // Drag hit sound clip here
+
     [Header("Animation Settings")]
     public float attackTiltAngle = 45f;
     public float attackTiltSpeed = 0.15f;
@@ -49,11 +53,19 @@ public class BattleUnit : MonoBehaviour
     }
 
     // ----------------------------------------------------
-    // TAKE DAMAGE
+    // TAKE DAMAGE (with sound + flash)
     // ----------------------------------------------------
     public void TakeDamage(int amount)
     {
-        if (IsDead) return;
+        if (IsDead)
+            return;
+
+        // --- AUDIO ---
+        if (hitAudio != null && hitSound != null)
+        {
+            hitAudio.pitch = Random.Range(0.95f, 1.05f); // tiny variation
+            hitAudio.PlayOneShot(hitSound);
+        }
 
         currentHP -= amount;
         if (currentHP < 0) currentHP = 0;
@@ -63,7 +75,7 @@ public class BattleUnit : MonoBehaviour
     }
 
     // ----------------------------------------------------
-    // ATTACK ANIMATION (mirrored based on facesLeft)
+    // ATTACK ANIMATION
     // ----------------------------------------------------
     public IEnumerator PlayAttackAnimation()
     {
