@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88644832b116224889a19b8e5531711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycleUI
-  dayDuration: 50
+  dayDuration: 5
   phaseLabel: {fileID: 2027571049}
   timerLabel: {fileID: 1239691510}
 --- !u!1 &394412230
@@ -4736,7 +4736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FarmManager
   cropPrefab: {fileID: 6069425101852645998, guid: 9ddcee32a3501584bac5c429f62ff06c, type: 3}
   cropParent: {fileID: 2080908338}
-  wateringRadius: 2.5
+  wateringRadius: 1.5
   cropLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -9440,6 +9440,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FarmArea
   minPlantDistance: 0.5
   cropParent: {fileID: 2080908338}
+--- !u!1 &1962624523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1962624525}
+  - component: {fileID: 1962624524}
+  m_Layer: 5
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1962624524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962624523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36897eef6ed947beb3df79e662b96d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  startScreenMusic: {fileID: 8300000, guid: 4321e997f4cc749a2a4a9b51c9f6eb14, type: 3}
+  farmMusic: {fileID: 8300000, guid: c47abf1e87c254ddc99f76fae9333ad9, type: 3}
+  itemPickupSFX: {fileID: 8300000, guid: ab3dde378a92c4099ab18ba0854d49a0, type: 3}
+  plantSeedSFX: {fileID: 0}
+  clickHoverSFX: {fileID: 8300000, guid: 3abeb8db7cbe94ca48957a02bab82a46, type: 3}
+  mousePressSFX: {fileID: 8300000, guid: 0b0f6028787df4713949f4e624b5f2b5, type: 3}
+--- !u!224 &1962624525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962624523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.83125, y: 1.83125, z: 1.83125}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 400, y: 254.471}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2025847342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9820,3 +9874,4 @@ SceneRoots:
   - {fileID: 1165435858}
   - {fileID: 1882784162}
   - {fileID: 629444750}
+  - {fileID: 1962624525}
