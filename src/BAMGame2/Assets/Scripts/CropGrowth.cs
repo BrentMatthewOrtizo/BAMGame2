@@ -51,6 +51,13 @@ public class CropGrowth : MonoBehaviour
         _model = _cropService.CreateCrop();
         _model.Stage.ChangeEvent += OnStageChanged;
     }
+    
+    public void SyncModelWaterState()
+    {
+        EnsureModel();
+        _model.IsWatered.Value = true;
+        _model.IsGrowing.Value = true;
+    }
 
     private void OnStageChanged(int newStage)
     {
@@ -102,19 +109,14 @@ public class CropGrowth : MonoBehaviour
     {
         EnsureModel();
 
-        if (_model.IsWatered.Value)
-        {
-            Debug.Log($"💧 {name} is already watered (model).");
-            return;
-        }
-
-        _cropService.WaterCrop(_model); // sets IsWatered + IsGrowing
+        // Sync Crop → Model
+        _model.IsWatered.Value = true;
+        _model.IsGrowing.Value = true;
 
         if (_isGrowing) return;
 
         _isGrowing = true;
         growthRoutine = StartCoroutine(Grow());
-        Debug.Log($"🌱 {name} started growing!");
     }
 
     private IEnumerator Grow()

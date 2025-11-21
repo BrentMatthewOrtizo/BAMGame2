@@ -27,6 +27,7 @@ public class Crop : MonoBehaviour
         if (cropGrowth != null)
         {
             // MVVM: this will update the CropModel via ICropService
+            cropGrowth.SyncModelWaterState();
             cropGrowth.OnWateredFromService();
         }
     }
