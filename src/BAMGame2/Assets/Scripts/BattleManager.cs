@@ -234,8 +234,11 @@ public class BattleManager : MonoBehaviour
     private bool AllDead(List<BattleUnit> list)
     {
         foreach (var u in list)
-            if (!u.IsDead)
+        {
+            // Must check both null AND IsDead
+            if (u != null && !u.IsDead)
                 return false;
+        }
 
         return true;
     }
